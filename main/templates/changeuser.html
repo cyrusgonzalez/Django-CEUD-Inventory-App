@@ -1,0 +1,28 @@
+{% extends "basedbapp.html" %}
+{% block content %}
+
+<br><h1>ETS Inventory User Admin Page</h1>
+<table class="myt" id="myt">
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th> 
+		<th>Username</th>
+		<th>Email</th>
+		<th>Actions</th>
+	</tr>
+	{% for self in allusers %}
+	{% if self.is_active and not self.is_supervisor %}
+	<tr>
+		<td>{{self.first_name}}</td>
+		<td>{{self.last_name}}</td>
+		<td>{{self.username}}</td>
+		<td>{{self.email}}</td>
+		<td>
+			<a href="{% url 'main:deleteuser' self.id %}">Delete</a>
+		</td>
+	</tr>
+	{% endif %}
+	{% endfor %}
+</table><br><br>
+
+{% endblock content %}

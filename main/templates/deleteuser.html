@@ -1,0 +1,23 @@
+{% extends "basedbapp.html" %}
+{% block content %}
+
+
+<br><h1>ETS Inventory User Delete Conformation</h1>
+<form action="{% url 'main:deleteuser' item.id %}" method="POST">
+	{% csrf_token %}
+	<div class="add">
+		<h2>Are you sure you want to delete account:  "{{ item }}" ?</h2>
+		<br/><hr /><br/>
+		<div class="form-check">
+			<input id="formcheck" type="checkbox" required>
+			<label for="formcheck">
+				Yes I am Sure
+			</label>
+		</div><br>
+		<button type="submit" class="btn btn-primary" style="font-weight: bold;">Delete User</button>
+		<a href="{% url 'main:changeuser' %}" style="font-weight: bold;">Cancel</a>
+	</div><br>
+</form>
+
+
+{% endblock content %}

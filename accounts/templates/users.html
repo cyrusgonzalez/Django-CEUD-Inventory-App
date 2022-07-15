@@ -1,0 +1,21 @@
+{% extends "baseauth.html" %}
+{% block content %}
+
+
+<h1>All Active ETS Inventory Users</h1>
+<h2>All Admins:</h2>
+{% for item in allusers %}
+	{% if item.is_supervisor %}
+		<h3>{{ item }}</h3>
+	{% endif %}
+{% endfor %}
+<br/>
+<h2>All Users:</h2>
+{% for item in allusers %}
+	{% if not item.is_supervisor %}
+		<h3>{{ item }}</h3>
+	{% endif %}
+{% endfor %}
+<br/>
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends "basedbapp.html" %}
+{% block content %}
+
+
+<br><h1>ETS Inventory Item Delete Conformation</h1>
+<form action="{% url 'main:deleteitem' item.id %}" method="POST">
+	{% csrf_token %}
+	<div class="add">
+		<h2>Are you sure you want to delete "{{ item.item_name }}" form Lab: {{ item.lab_name_no }}?</h2>
+		<br/><hr /><br/>
+		<div class="form-check">
+			<input id="formcheck" type="checkbox" required>
+			<label for="formcheck">
+				Yes I am Sure
+			</label>
+		</div><br>
+		<button type="submit" class="btn btn-primary" style="font-weight: bold;">Delete Item</button>
+		<a href="{% url 'main:changeitem' %}" style="font-weight: bold;">Cancel</a>
+	</div><br>
+</form>
+
+
+{% endblock content %}

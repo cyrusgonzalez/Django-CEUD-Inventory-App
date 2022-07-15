@@ -1,0 +1,100 @@
+{% extends "basedbapp.html" %}
+{% block content %}
+
+<br><h1>ETS Inventory Full Item View</h1>
+	<form method="GET">
+		{% csrf_token %}
+		<ul class="search">
+			<li class="search">
+				<label for="item_name" class="form-label">Item Name:</label>
+				<input type="text" class="form-control" id="item_name" name="item_name" placeholder="Search by keyword...">
+			</li>
+			<li class="search">
+				<label for="ser_prod_no" class="form-label">Serial/Product No.:</label>
+				<input type="text" class="form-control" id="ser_prod_no" name="ser_prod_no" placeholder="Search by keyword...">
+			</li>
+			<li class="search">
+				<label for="category_inf" class="form-label">Category:</label>
+				<select id="category_inf" name="category_inf" class="form-select" required>
+					<option disabled="True" selected>Choose...</option>
+					<option value="Paper">Paper</option>
+					<option value="Ink/Heads">Ink/Heads</option>
+					<option value="Printers/Scanners">Printers/Scanners</option>
+					<option value="Computers">Computers</option>
+					<option value="Monitors">Monitors</option>
+					<option value="Peripherals">Peripherals</option>
+					<option value="Audio/Visual">Audio/Visual</option>
+					<option value="Supplies">Supplies</option>
+					<option value="Tools">Tools</option>
+					<option value="Miscellaneous">Miscellaneous</option>
+				</select>
+			</li>
+			<li class="search">
+				<label for="lab_name_no" class="form-label">Lab Name/No:</label>
+				<select id="lab_name_no" name="lab_name_no" class="form-select" required>
+					<option disabled="True" selected>Choose...</option>
+					<option value="Anderson">Anderson</option>
+					<option value="Academic Village">Academic Village</option>
+					<option value="ECE C105">ECE C105</option>
+					<option value="ECE C107">ECE C107</option>
+					<option value="ECE C207">ECE C207</option>
+					<option value="ERC">ERC</option>
+					<option value="GIS">GIS</option>
+					<option value="Magellan Studio">Magellan Studio</option>
+					<option value="Power House">Power House</option>
+					<option value="Scott Bldg">Scott Bldg</option>
+				</select>
+			</li>
+			<li class="search">
+				<input class="btn btn-primary" type="submit" style="font-weight: bold;" value="Search Views">
+			</li>
+		</ul><br><br>
+		<table class="myt" id="myt">
+			<tr>
+				<th>Item Name</th>
+				<th>Serial #</th> 
+				<th>Descrption</th>
+				<th>Category</th>
+				<th>Lab Name/#</th> 
+				<th>Quantity</th>
+			</tr>
+			{% for self in f.qs %}
+			<tr>
+				<td>{{self.item_name}}</td>
+				<td>{{self.ser_prod_no}}</td>
+				<td>{{self.descript_inf}}</td>
+				<td>{{self.category_inf}}</td>
+				<td>{{self.lab_name_no}}</td>
+				<td>
+					<a href="{% url 'main:increment10' self.id %}">+10</a>
+					<a href="{% url 'main:increment' self.id %}">+1</a>
+					{{self.quantity_of}}
+					<a href="{% url 'main:decrement' self.id %}">-1</a>
+					<a href="{% url 'main:decrement10' self.id %}">-10</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</table><br><hr><br>
+	</form>    
+
+{% endblock content %}
+<!-- 
+{% block pagination %}
+	<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %} -->

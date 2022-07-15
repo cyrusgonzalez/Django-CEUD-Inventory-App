@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#myt {
+				font-family: Open Sans Semibold, Helvetica, sans-serif;
+				border-collapse: collapse;
+				width: 100%;
+			}
+			.myt th {
+				padding-top: 12px;
+				padding-bottom: 12px;
+				text-align: left;
+				background-color: #1E4D2B;
+				color: white;
+			}
+			.myt td, .myt th {
+				border: 1px solid #ddd;
+				padding: 8px;
+			}
+			.myt tr:nth-child(even){
+				background-color: #f2f2f2;
+			}
+			.myt tr:hover {
+				background-color: #ddd;
+			}
+			h1 {
+				text-align: center;
+			}
+			input[type=text], select {
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+			input[type=password],  select {
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+			.add {
+				border-radius: 5px;
+				background-color: #1E4D2B;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+				color:white;
+				padding:2% 2%;
+				font-family: Open Sans Semibold, Helvetica, sans-serif;
+			}
+			.myUl {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				width: 18%;
+				background-color: #111;
+				position: fixed;
+				height: 98%;
+				overflow: auto;
+			}
+			.myLi a {
+				display: block;
+				color: white;
+				padding: 16px 16px;
+				text-decoration: none;
+				font-size: 18px;
+			}
+			.myLi a:hover {
+				background-color: #555;
+				color: white;
+			}
+			.search {
+				background-color: #1E4D2B;
+				color:white;
+				padding:2px 2px;
+				font-family: Open Sans Semibold, Helvetica, sans-serif;
+				margin-top:2px;
+				width:100%;
+				overflow: hidden
+			}
+			.search li {
+				display:inline;
+				width:24%;
+				float:left;
+				margin-left:2px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="myUl">
+				<li class="myLi"><a href="{% url 'main:inventorypage' %}">Full Inventory</a></li>
+			{% if user.is_authenticated and user.is_supervisor %}
+				<li class="myLi"><a href="{% url 'main:additem' %}">Add New Item</a></li>
+				<li class="myLi"><a href="{% url 'main:changeitem' %}">Edit/Delete Item</a></li>
+				<li class="myLi"><a href="{% url 'main:changeuser' %}">Delete User</a></li>
+			{% endif %}
+			{% if user.is_active %}
+				<li class="myLi"><a href="{% url 'accounts:logoutuser' %}">Logout</a></li>
+			{% endif %}
+		</ul>
+		<div style="margin-left:19%;height:100%;">
+			{% block content %}
+			{% endblock content %}
+			{% if messages %}
+				{% for i in messages%}
+					{{ i }}
+				{% endfor %}
+			{% endif %}
+			<!-- {% block pagination %}
+			{% endblock pagination %} -->
+		</div>
+	</body>
+</html>

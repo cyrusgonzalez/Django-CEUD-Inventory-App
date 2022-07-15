@@ -1,0 +1,80 @@
+{% extends "basedbapp.html" %}
+{% block content %}
+
+<br><h1>ETS Inventory Item Editing</h1>
+<form action="{% url 'main:edititem' item.id %}" method="post">
+	{% csrf_token %}
+	<div class="add">
+		<div class="col-md-6">
+			<label for="item_name" class="form-label">Item Name</label>
+			<input type="text" class="form-control" id="item_name" name="item_name" value="{{item.item_name}}" required>
+		</div><br>
+		<div class="col-md-6">
+			<label for="ser_prod_no" class="form-label">Serial/Product No.</label>
+			<input type="text" class="form-control" id="ser_prod_no" name="ser_prod_no" value="{{item.ser_prod_no}}" required>
+		</div><br>
+		<div class="col-12">
+			<label for="descript_inf" class="form-label">Description</label>
+			<input type="text" class="form-control" id="descript_inf" name="descript_inf" value="{{item.descript_inf}}" required>
+		</div><br>
+		<div class="col-md-5">
+			<label for="category_inf" class="form-label">Category:</label>
+			<select id="category_inf" name="category_inf" class="form-select" required>
+				<option selected value="{{ item.category_inf }}">{{ item.category_inf }}</option>
+				<option value="Paper">Paper</option>
+				<option value="Ink/Heads">Ink/Heads</option>
+				<option value="Printers/Scanners">Printers/Scanners</option>
+				<option value="Computers">Computers</option>
+				<option value="Monitors">Monitors</option>
+				<option value="Peripherals">Peripherals</option>
+				<option value="Audio/Visual">Audio/Visual</option>
+				<option value="Supplies">Supplies</option>
+				<option value="Tools">Tools</option>
+				<option value="Miscellaneous">Miscellaneous</option>
+			</select>
+		</div><br>
+		<div class="col-md-5">
+			<label for="lab_name_no" class="form-label">Lab Room ID:</label>
+			<select id="lab_name_no" name="lab_name_no" class="form-select" required>
+				<option selected value="{{ item.lab_name_no }}">{{ item.lab_name_no }}</option>
+				<option value="Anderson">Anderson</option>
+				<option value="Academic Village">Academic Village</option>
+				<option value="ECE C105">ECE C105</option>
+				<option value="ECE C107">ECE C107</option>
+				<option value="ECE C207">ECE C207</option>
+				<option value="ERC">ERC</option>
+				<option value="GIS">GIS</option>
+				<option value="Magellan Studio">Magellan Studio</option>
+				<option value="Power House">Power House</option>
+				<option value="Scott Bldg">Scott Bldg</option>
+			</select>
+		</div><br>
+		<div class="col-md-2">
+			<label for="quantity_of" class="form-label">Quantity</label>
+			<input type="number" class="form-control" required class="vIntegerField" min="1" id="quantity_of" name="quantity_of" value={{item.quantity_of}} required>
+		</div><br><hr /><br>
+		<div class="form-check">
+		  <input id="formcheck" type="checkbox" required>
+		  <label for="formcheck">
+			Verify Edit
+		  </label>
+		</div><br>
+		<div class="col-12">
+			<button type="submit" class="btn btn-primary" style="font-weight: bold;">Edit Item</button>
+			<a href="{% url 'main:changeitem' %}" style="font-weight: bold;">Cancel</a>
+		</div>
+	</div>
+</form>
+
+{% endblock content %}
+
+<!-- {% block pagination %}
+	{% for page_number in page_obj.paginator.page_range %}
+		<a
+			href="{% url 'terms-by-page' page_number %}"
+			class="{% if page_number == page_obj.number %}current{% endif %}"
+		>
+			{{page_number}}
+		</a>
+	{% endfor %}
+{% endblock %} -->

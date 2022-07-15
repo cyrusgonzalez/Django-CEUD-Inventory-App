@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			h1 {text-align: center;}
+			input[type=text], select {
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+			input[type=password],  select {
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+			div {
+				border-radius: 5px;
+				background-color: #1E4D2B;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+				font-family: Open Sans Semibold, Helvetica, sans-serif;
+			}
+			.myUl {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				width: 18%;
+				background-color: #111;
+				position: fixed;
+				height: 98%;
+				overflow: auto;
+			}
+			.myLi a {
+				display: block;
+				color: white;
+				padding: 16px 16px;
+				text-decoration: none;
+				font-size: 18px;
+			}
+			.myLi a:hover {
+				background-color: #555;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="myUl">
+			<li class="myLi"><a href="{% url 'index' %}">Information</a></li>
+			<li class="myLi"><a href="{% url 'accounts:loginuser' %}">Login Page</a></li>
+			<li class="myLi"><a href="{% url 'accounts:register' %}">Register User</a></li>
+			<li class="myLi"><a href="{% url 'accounts:users' %}">Active Users</a></li>
+		</ul>
+		<div style="margin-left:20%;padding:2% 2%;height:100%; color:white" >
+			{% block content %}
+			{% endblock content %}
+			{% if messages %}
+				{% for i in messages%}
+					{{ i }}
+				{% endfor %}
+			{% endif %}
+		</div>
+	</body>
+</html>

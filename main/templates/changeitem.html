@@ -1,0 +1,33 @@
+{% extends "basedbapp.html" %}
+{% block content %}
+
+
+<br><h1>ETS Inventory Item Admin Page</h1>
+<table class="myt" id="myt">
+	<tr>
+		<th>Item Name</th>
+		<th>Serial #</th> 
+		<th>Descrption</th>
+		<th>Category</th>
+		<th>Lab Name/#</th> 
+		<th>Quantity</th>
+		<th>Actions</th>
+	</tr>
+	{% for self in allitems %}
+	<tr>
+		<td>{{self.item_name}}</td>
+		<td>{{self.ser_prod_no}}</td>
+		<td>{{self.descript_inf}}</td>
+		<td>{{self.category_inf}}</td>
+		<td>{{self.lab_name_no}}</td>
+		<td>{{self.quantity_of}}</td>
+		<td>
+			<a href="{% url 'main:edititem' self.id %}">Edit</a>
+			<a href="{% url 'main:deleteitem' self.id %}">Delete</a>
+		</td>
+	</tr>
+	{% endfor %}
+</table><br><hr><br>
+
+
+{% endblock content %}

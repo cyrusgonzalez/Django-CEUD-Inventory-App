@@ -1,0 +1,13 @@
+{% extends "baseauth.html" %}
+{% block content %}
+
+<h1>ETS Inventory Sign Up</h1>
+<form method="POST" action="{% url 'accounts:register' %}">
+  	{% csrf_token %}
+  	{{ form.as_p }}
+  	<br/><br/>
+  	<input class="btn btn-primary" type="submit" style="font-weight: bold;" value="Sign Up">
+</form>
+<br/><br/>
+
+{% endblock content %}
