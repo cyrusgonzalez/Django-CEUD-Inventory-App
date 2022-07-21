@@ -5,15 +5,12 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
-	'https://labs-inventory.engr.colostate.edu',
-	'https://10.2.224.198:8000'
+	'https://labs-inventory.engr.colostate.edu'
 ]
 
 ALLOWED_HOSTS = [
 	'labs-inventory.engr.colostate.edu',
-	'https://labs-inventory.engr.colostate.edu',
-	'10.2.224.198.engr.colostate.edu',
-	'https://10.2.224.198:8000'
+	'https://labs-inventory.engr.colostate.edu'
 ]
 
 DATABASES = {
