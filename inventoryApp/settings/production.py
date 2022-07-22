@@ -20,7 +20,7 @@ DATABASES = {
 	# }
 	'default': {
 		'ENGINE': 'django.db.backends.mysql',
-		'NAME': 'inventoryETSdb',
+		'NAME': os.getenv('SQL_NAME'),
 		'USER': os.getenv('SQL_USER'),
 		'PASSWORD': os.getenv('SQL_PASS'),
 		'HOST': '127.0.0.1',
