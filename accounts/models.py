@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.db.models.base import Model
 from django.conf import settings
@@ -38,7 +39,7 @@ class CustomUserManager(BaseUserManager):
 			user.save()
 		return user
 
-	def create_superuser(self, username, email, first_name, last_name, password):
+	def create_superuser(self, username, email, first_name, last_name, regcode, password):
 		"""
 		Creates and saves a superuser with the same credentials.
 		"""
@@ -49,7 +50,7 @@ class CustomUserManager(BaseUserManager):
 			first_name=first_name,
 			last_name=last_name,
 			commit=False,
-			regcode=settings.USER_ADMIN_REG,
+			regcode=regcode,
 		)
 
 		user.is_staff = True
