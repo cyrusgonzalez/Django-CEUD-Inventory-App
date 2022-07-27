@@ -73,6 +73,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 	is_active = models.BooleanField(_('active'), default=True,)
 	is_staff = models.BooleanField(_('staff status'), default=False,)
+	is_superuser = models.BooleanField(_('super status'), default=False,)
 	is_supervisor = models.BooleanField(_('supervisor'), default=False,)
 
 	def __str__(self):
