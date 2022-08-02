@@ -2,9 +2,9 @@
 A base system for the Engineering Technology Services at Colorado State University, up to date on all fixes with the abscense of SQL connections given the right to command all of the connections on one's own server.
 
 Requires:
-Using Python 3.9.7
-Django Framework v4.0.5
-MySql/MariaDB and/or SqLite3 (if not using default internal db.sqlite3)
+    -Using Python 3.9.7
+    -Django Framework v4.0.5
+    -MySql/MariaDB and/or SqLite3 (if not using default internal db.sqlite3)
 
 Before Hand:
 1. Locate the directory in which you forked or pulled the code into ("T:\\his\is\your\projectfolder")
