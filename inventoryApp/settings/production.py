@@ -2,17 +2,13 @@ from .base import *
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = True
+DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
-	'https://labs-inventory.engr.colostate.edu'
+	os.getenv('ORIGINNAMES')
 ]
 
-ALLOWED_HOSTS = [
-	'labs-inventory.engr.colostate.edu',
-	'https://labs-inventory.engr.colostate.edu',
-	'129.82.23.238'
-]
+ALLOWED_HOSTS = os.getenv('SERVERNAMES').split()
 
 DATABASES = {
 	'default': {
