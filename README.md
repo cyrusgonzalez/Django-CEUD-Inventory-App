@@ -14,6 +14,20 @@ Before Hand:
 5. Configured for Production at the moment so to run the debug on the server, navigate to inventoryApp/settings/production.py and set DEBUG=True in the page itself
     -Alternatively you can also go to the ***
 
+For the environment variables, the following will have to be declared for testing on your own fork.
+If committing, Please make sure to create a new branch and follow it, as master will not allow commits/merge.
+
+    -DJANGO_SETTINGS_MODULE="inventoryApp.settings.production"
+    -SECRET_KEY="YOUR-django-KEY-here-1234598765"
+    -USER_ADMIN_REG="AdminCodeR3g3X"
+    -USER_BASIC_REG="StandardR3g3X"
+        **NOTE: You do have to create a pair of 7-digit integer keys {verbose_name},
+        these are to be for BOTH user registrations (Permissions listed below)
+    -SQL_USER="mySqlUser"
+    -SQL_PASS="mySqlPasswordH3r3"
+    -SERVERNAMES="server.domain.net:#### https://server.domain.net:#### IP4.NUM.BER.000:####"
+    -ORIGINNAMES="https://server.domain.net:####"
+
 To App:
 
 
