@@ -2,7 +2,7 @@ from .base import *
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = False
+DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = [
 	os.getenv('ORIGINNAMES')
