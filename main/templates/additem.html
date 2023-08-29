@@ -21,7 +21,14 @@
 	    <div class="col-md-5">
 			<label for="category_inf" class="form-label">Category:</label>
 			<select id="category_inf" name="category_inf" class="form-select" required>
-				<option value="Paper">Paper</option>
+				<option disabled="True" selected>Select an Option</option>
+				<option value="Paper/Non-Standard">Paper/Non-Standard</option>
+				<option value="Paper/Standard">Paper/Standard</option>
+				<option value="Paper/Plotters">Paper/Plotters</option>
+				<option value="Toner/Plotters">Toner/Plotters</option>
+				<option value="Toner/Color">Toner/Color</option>
+				<option value="Toner/BW">Toner/BW</option>
+				<option value="Toner/Small">Toner/Small</option>
 				<option value="Ink/Heads">Ink/Heads</option>
 				<option value="Printers/Scanners">Printers/Scanners</option>
 				<option value="Computers">Computers</option>
@@ -36,6 +43,8 @@
 	    <div class="col-md-5">
 			<label for="lab_name_no" class="form-label">Lab Room ID:</label>
 			<select id="lab_name_no" name="lab_name_no" class="form-select" required>
+				<option disabled="True" selected>Select an Option</option>
+				<option value="ALL LOCATIONS">ALL LOCATIONS</option>
 				<option value="Anderson">Anderson</option>
 				<option value="Academic Village">Academic Village</option>
 				<option value="ECE C105">ECE C105</option>
@@ -47,13 +56,20 @@
 				<option value="Power House">Power House</option>
 				<option value="Scott Bldg">Scott Bldg</option>
 			</select>
-	    </div><br>
-	    <div class="col-md-2">
-			<label for="quantity_of" class="form-label">Quantity:</label>
-			<input type="number" class="form-control" required class="vIntegerField" min="1" id="quantity_of" name="quantity_of" required>
-	    </div><br><hr /><br>
-	    <div class="form-check">
-	      <input id="formcheck" type="checkbox" required>
+	    	</div><br>
+	    	<div class="col-md-2">
+			<label for="quantity_of" class="form-label">Item Quantity:</label>
+			<input type="number" class="form-control" required class="vIntegerField" min="0" id="quantity_of" name="quantity_of" required>
+	    	</div><br>
+<!--
+		<div class="col-md-2">
+			<label for="threshold_val" class="form-label">Warn Low Quantity:</label>
+			<input type="number" class="form-control" required class="vIntegerField" min="0" id="threshold_val" name="threshold_val" required>
+		</div><br>
+--!>
+<hr /><br>
+		<div class="form-check">
+	        <input id="formcheck" type="checkbox" required>
 	      <label for="formcheck" style="font-size: 18px; font-weight: bold;">
 	        Verify Addition
 	      </label>

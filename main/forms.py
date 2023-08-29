@@ -7,11 +7,12 @@ class Inventoryform(forms.ModelForm):
 	class Meta:
 		model = Inventory
 		fields = ['item_name','ser_prod_no','descript_inf',
-			'category_inf','lab_name_no','quantity_of',]
+			'category_inf','lab_name_no','quantity_of',]#'threshold_val',
 
 class Inventoryfilter(django_filters.FilterSet):
 	item_name = django_filters.CharFilter(lookup_expr='icontains')
 	ser_prod_no = django_filters.CharFilter(lookup_expr='icontains')
+	descript_inf = django_filters.CharFilter(lookup_expr='icontains')
 
 	class Meta:
 		model = Inventory

@@ -1,0 +1,38 @@
+item_name,ser_prod_no,descript_inf,category_inf,lab_name_no,quantity_of
+"Boxes of 8.5x11 ",N/A,"Standard paper size",Paper,Anderson,6
+"650A Black",CE270A,"HP Color LaserJet M750 Toner",Ink/Heads,Anderson,2
+"650A Yellow",CE272A,"HP Color LaserJet M750 Toner",Ink/Heads,Anderson,4
+"650A Magenta",CE273A,"HP Color LaserJet M750 Toner",Ink/Heads,Anderson,4
+"650A cyan",CE271A,"HP Color LaserJet M750 Toner",Ink/Heads,Anderson,3
+"Boxes of 11x17 ",N/A,"Large paper",Paper,Anderson,1
+"Boxes of 8.5x14",N/A,"Medium Paper",Paper,Anderson,1
+"508x Cyan",CF361X,"HP Color LaserJet M553 Toner",Ink/Heads,Anderson,8
+"508x Yellow",CF362X,"HP Color LaserJet M553 Toner",Ink/Heads,Anderson,3
+"508x Black",CF360X,"HP Color LaserJet M553 Toner",Ink/Heads,Anderson,2
+"508x Magenta",CF363X,"HP Color LaserJet M553 Toner",Ink/Heads,Anderson,2
+CE55X,CE255X,"For Scott 245",Ink/Heads,Anderson,1
+CF87X,CF287X,"HP LaserJet M506 toner",Ink/Heads,Anderson,2
+25x,CF325x,"HP Color LaserJet 806 Toner",Ink/Heads,Anderson,4
+"771A Light Cyan ",B6Y20A,"60"" Plotter Toner",Ink/Heads,"Magellan Studio",2
+"771A Chromatic Red",B6Y16A,"60"" Plotter Toner",Ink/Heads,"Magellan Studio",1
+"771A Yellow",B6Y18A,"60"" Plotter Toner",Ink/Heads,"Magellan Studio",1
+"771A Magenta",B6Y17A,"60"" Plotter Toner",Ink/Heads,"Magellan Studio",3
+"771A Light Grey"," B6Y22A","60"" Plotter Toner",Ink/Heads,"Magellan Studio",1
+"771A Light Magenta",B6Y19A,"60"" Plotter Toner",Ink/Heads,"Magellan Studio",2
+"771A Photo Black"," B6Y21A","60"" Plotter Toner",Ink/Heads,"Magellan Studio",0
+"771A MAtte Black",B6Y15A,"60"" Plotter Toner",Ink/Heads,"Magellan Studio",2
+"730 Yellow",P2V70A,"Magellan 44"" Plotter",Ink/Heads,"Magellan Studio",3
+"730 Magenta",P2V69A,"Magellan 44"" Plotter",Ink/Heads,"Magellan Studio",2
+"730 Gray",P2V72A,"Magellan 44"" Plotter",Ink/Heads,"Magellan Studio",2
+"730 Cyan",P2V68A,"Magellan 44"" Plotter",Ink/Heads,"Magellan Studio",3
+"730 Matte Black",P2V71A,"Magellan 44"" Plotter",Ink/Heads,"Magellan Studio",3
+"730 Photo Black",P2V73A,"Magellan 44"" Plotter",Ink/Heads,"Magellan Studio",2
+"72 Cyan",C9371A,"Scott 44"" Plotter",Ink/Heads,Anderson,5
+"72 Gray",C9374A,"Scott 44"" Plotter",Ink/Heads,Anderson,7
+"72 Magenta",C9372A,"Scott 44"" Plotter",Ink/Heads,Anderson,1
+"72 Matte Black",C9403A,"Scott 44"" Plotter",Ink/Heads,Anderson,3
+"72 Photo Black",C9370A,"Scott 44"" Plotter",Ink/Heads,Anderson,2
+"72 Yellow",C9373A,"Scott 44"" Plotter",Ink/Heads,Anderson,4
+"42 inch Paper Roll",N/A,"44"" Plotter (300' roll)",Paper,Anderson,6
+"60 inch Paper Roll",N/A,"60"" plotter  (200' roll)",Paper,Anderson,2
+"44 inch Paper roll",N/A,"44"" Plotter (150' roll)",Paper,Anderson,2

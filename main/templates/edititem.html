@@ -6,22 +6,28 @@
 	{% csrf_token %}
 	<div class="add">
 		<div class="col-md-6">
-			<label for="item_name" class="form-label">Item Name</label>
+			<label for="item_name" class="form-label">Item Name:</label>
 			<input type="text" class="form-control" id="item_name" name="item_name" value="{{item.item_name}}" required>
 		</div><br>
 		<div class="col-md-6">
-			<label for="ser_prod_no" class="form-label">Serial/Product No.</label>
+			<label for="ser_prod_no" class="form-label">Serial/Product No.:</label>
 			<input type="text" class="form-control" id="ser_prod_no" name="ser_prod_no" value="{{item.ser_prod_no}}" required>
 		</div><br>
 		<div class="col-12">
-			<label for="descript_inf" class="form-label">Description</label>
+			<label for="descript_inf" class="form-label">Description:</label>
 			<input type="text" class="form-control" id="descript_inf" name="descript_inf" value="{{item.descript_inf}}" required>
 		</div><br>
 		<div class="col-md-5">
 			<label for="category_inf" class="form-label">Category:</label>
 			<select id="category_inf" name="category_inf" class="form-select" required>
 				<option selected value="{{ item.category_inf }}">{{ item.category_inf }}</option>
-				<option value="Paper">Paper</option>
+				<option value="Paper/Non-Standard">Paper/Non-Standard</option>
+				<option value="Paper/Standard">Paper/Standard</option>
+				<option value="Paper/Plotters">Paper/Plotters</option>
+				<option value="Toner/Plotters">Toner/Plotters</option>
+				<option value="Toner/Color">Toner/Color</option>
+				<option value="Toner/BW">Toner/BW</option>
+				<option value="Toner/Small">Toner/Small</option>
 				<option value="Ink/Heads">Ink/Heads</option>
 				<option value="Printers/Scanners">Printers/Scanners</option>
 				<option value="Computers">Computers</option>
@@ -37,6 +43,7 @@
 			<label for="lab_name_no" class="form-label">Lab Room ID:</label>
 			<select id="lab_name_no" name="lab_name_no" class="form-select" required>
 				<option selected value="{{ item.lab_name_no }}">{{ item.lab_name_no }}</option>
+				<option value="ALL LOCATIONS">ALL LOCATIONS</option>
 				<option value="Anderson">Anderson</option>
 				<option value="Academic Village">Academic Village</option>
 				<option value="ECE C105">ECE C105</option>
@@ -50,9 +57,16 @@
 			</select>
 		</div><br>
 		<div class="col-md-2">
-			<label for="quantity_of" class="form-label">Quantity</label>
+			<label for="quantity_of" class="form-label">Item Quantity:</label>
 			<input type="number" class="form-control" required class="vIntegerField" min="1" id="quantity_of" name="quantity_of" value={{item.quantity_of}} required>
-		</div><br><hr /><br>
+		</div><br>
+<!--
+		<div class="col-md-2">
+			<label for="threshold_val" class="form-label">Warn Low Quantity:</label>
+			<input type="number" class="form-control" required class="vIntegerField" min="1" id="threshold_val" name="threshold_val" value={{item.threshold_val}} required>
+		</div><br>
+--!>
+<hr /><br>
 		<div class="form-check">
 		  <input id="formcheck" type="checkbox" required>
 		  <label for="formcheck">

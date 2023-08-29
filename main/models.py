@@ -10,7 +10,8 @@ class Inventory(models.Model):
 	descript_inf = models.CharField(max_length = 200)
 	category_inf = models.CharField(max_length = 200)
 	lab_name_no = models.CharField(max_length = 200)
-	quantity_of = models.PositiveIntegerField(default=1)
+	quantity_of = models.PositiveIntegerField(default = 0)
+	#threshold_val = models.PositiveIntegerField(default = 0, blank = True)
 
 	def __str__(self):
 		return self.item_name

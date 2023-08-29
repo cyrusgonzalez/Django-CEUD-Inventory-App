@@ -1,7 +1,8 @@
 {% extends "basedbapp.html" %}
 {% block content %}
 
-<br><h1>ETS Inventory Full Item View</h1>
+<br>
+<h1>ETS Inventory Full Item View</h1>
 	<form method="GET">
 		{% csrf_token %}
 		<ul class="search">
@@ -14,10 +15,20 @@
 				<input type="text" class="form-control" id="ser_prod_no" name="ser_prod_no" placeholder="Search by keyword...">
 			</li>
 			<li class="search">
+				<label for="descript_inf" class="form-label">Description:</label>
+				<input type="text" class="form-control" id="descript_inf" name="descript_inf" placeholder="Search by keyword...">
+			</li>
+			<li class="search">
 				<label for="category_inf" class="form-label">Category:</label>
 				<select id="category_inf" name="category_inf" class="form-select" required>
 					<option disabled="True" selected>Choose...</option>
-					<option value="Paper">Paper</option>
+					<option value="Paper/Non-Standard">Paper/Non-Standard</option>
+					<option value="Paper/Standard">Paper/Standard</option>
+					<option value="Paper/Plotters">Paper/Plotters</option>
+					<option value="Toner/Plotters">Toner/Plotters</option>
+					<option value="Toner/Color">Toner/Color</option>
+					<option value="Toner/BW">Toner/BW</option>
+					<option value="Toner/Small">Toner/Small</option>
 					<option value="Ink/Heads">Ink/Heads</option>
 					<option value="Printers/Scanners">Printers/Scanners</option>
 					<option value="Computers">Computers</option>
@@ -26,13 +37,14 @@
 					<option value="Audio/Visual">Audio/Visual</option>
 					<option value="Supplies">Supplies</option>
 					<option value="Tools">Tools</option>
-					<option value="Miscellaneous">Miscellaneous</option>
+					<option value="Miscellaneous">Miscellaneous</option>				
 				</select>
 			</li>
 			<li class="search">
 				<label for="lab_name_no" class="form-label">Lab Name/No:</label>
 				<select id="lab_name_no" name="lab_name_no" class="form-select" required>
 					<option disabled="True" selected>Choose...</option>
+					<option value="ALL LOCATIONS">ALL LOCATIONS</option>
 					<option value="Anderson">Anderson</option>
 					<option value="Academic Village">Academic Village</option>
 					<option value="ECE C105">ECE C105</option>
@@ -59,20 +71,53 @@
 				<th>Quantity</th>
 			</tr>
 			{% for self in f.qs %}
-			<tr>
-				<td>{{self.item_name}}</td>
-				<td>{{self.ser_prod_no}}</td>
-				<td>{{self.descript_inf}}</td>
-				<td>{{self.category_inf}}</td>
-				<td>{{self.lab_name_no}}</td>
-				<td>
-					<a href="{% url 'main:increment10' self.id %}">+10</a>
-					<a href="{% url 'main:increment' self.id %}">+1</a>
-					{{self.quantity_of}}
-					<a href="{% url 'main:decrement' self.id %}">-1</a>
-					<a href="{% url 'main:decrement10' self.id %}">-10</a>
-				</td>
-			</tr>
+<!--
+{% comment %}
+				{% if 
+					self.category_inf == "Paper/Non-Standard" and self.quantity_of <= 1 or 
+					self.category_inf == "Paper/Standard" and self.quantity_of <= 4 or 
+					self.category_inf == "Paper/Plotters" and self.quantity_of <= 1 or 
+					self.category_inf == "Toner/Plotters" and self.quantity_of <= 1 or 
+					self.category_inf == "Toner/Color" and self.quantity_of <= 2 or 
+					self.category_inf == "Toner/BW" and self.quantity_of <= 3 or 
+					self.category_inf == "Toner/Small" and self.quantity_of <= 1 
+				%}
+					<tr style="color:darkred">
+						<td>{{self.item_name}}</td>
+						<td>{{self.ser_prod_no}}</td>
+						<td>{{self.descript_inf}}</td>
+						<td>{{self.category_inf}}</td>
+						<td>{{self.lab_name_no}}</td>
+						<td>
+							<a href="{% url 'main:increment10' self.id %}">+10</a>
+							<a href="{% url 'main:increment' self.id %}">+1</a>
+							{{self.quantity_of}}
+							<a href="{% url 'main:decrement' self.id %}">-1</a>
+							<a href="{% url 'main:decrement10' self.id %}">-10</a>
+						</td>
+					</tr>
+				{%else%}
+{% endcomment %}
+--!>
+					<tr>
+						<td>{{self.item_name}}</td>
+						<td>{{self.ser_prod_no}}</td>
+						<td>{{self.descript_inf}}</td>
+						<td>{{self.category_inf}}</td>
+						<td>{{self.lab_name_no}}</td>
+						<td>
+							<a href="{% url 'main:increment10' self.id %}">+10</a>
+							<a href="{% url 'main:increment' self.id %}">+1</a>
+							<strong>{{self.quantity_of}}</strong>
+							<a href="{% url 'main:decrement' self.id %}">-1</a>
+							<a href="{% url 'main:decrement10' self.id %}">-10</a>
+						</td>
+					</tr>
+<!--
+{% comment %}
+				{% endif %}
+{% endcomment %}
+--!>
 			{% endfor %}
 		</table><br><hr><br>
 	</form>    

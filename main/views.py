@@ -27,14 +27,16 @@ def additem(request):
 		category_inf = request.POST['category_inf']
 		lab_name_no = request.POST['lab_name_no']
 		quantity_of = request.POST['quantity_of']
+		#threshold_val = request.POST['threshold_val']
 		form = Inventoryform(request.POST)
 		if form.is_valid():
-			if Inventory.objects.filter(item_name=item_name, lab_name_no=lab_name_no).exists():
+			if Inventory.objects.filter(item_name = item_name, lab_name_no = lab_name_no).exists():
 				messages.error(request, "Error: This item already exist")
 			else:
-				item = Inventory(item_name=item_name, ser_prod_no = ser_prod_no, 
+				item = Inventory(item_name = item_name, ser_prod_no = ser_prod_no, 
 					descript_inf = descript_inf, category_inf = category_inf,
-					lab_name_no = lab_name_no, quantity_of = quantity_of)
+					lab_name_no = lab_name_no, quantity_of = quantity_of, 
+					)#threshold_val = threshold_val
 				item.save()
 			return redirect(reverse('main:inventorypage'))
 	else:
@@ -51,6 +53,7 @@ def edititem(request, item_id):
 		quantity_of = request.POST['quantity_of']
 		lab_name_no = request.POST['lab_name_no']
 		category_inf = request.POST['category_inf']
+		#threshold_val = request.POST['threshold_val']
 		form = Inventoryform(request.POST)
 		if form.is_valid():
 			Inventory.objects.filter(pk=item_id).update(item_name=item_name)
@@ -59,6 +62,7 @@ def edititem(request, item_id):
 			Inventory.objects.filter(pk=item_id).update(quantity_of=quantity_of)
 			Inventory.objects.filter(pk=item_id).update(lab_name_no=lab_name_no)
 			Inventory.objects.filter(pk=item_id).update(category_inf=category_inf)
+			#Inventory.objects.filter(pk=item_id).update(threshold_val=threshold_val)
 		return redirect(reverse('main:changeitem'))
 	context = {'item':item}
 	return render(request, 'edititem.html', context)
