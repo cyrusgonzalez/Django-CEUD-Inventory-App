@@ -4,7 +4,7 @@ import sys
 import dotenv
 
 def main():
-	os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'inventoryApp.settings.production')
+	os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'inventoryApp.settings.development')
 	
 	if os.getenv('DJANGO_SETTINGS_MODULE'):
 		os.environ['DJANGO_SETTINGS_MODULE'] = os.getenv('DJANGO_SETTINGS_MODULE')
