@@ -18,7 +18,7 @@ dotenv.load_dotenv(
 
 os.environ.setdefault(
 	'DJANGO_SETTINGS_MODULE',
-	'inventoryApp.settings.production'
+	'inventoryApp.settings.development'
 )
 
 if os.getenv('DJANGO_SETTINGS_MODULE'):

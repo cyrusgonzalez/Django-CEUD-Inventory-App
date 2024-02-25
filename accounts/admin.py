@@ -52,7 +52,7 @@ class UpdateUserForm(forms.ModelForm):
 		)
 
 	def clean_password(self):
-# Password can't be changed in the admin
+	# Password can't be changed in the admin
 		return self.initial["password"]
 
 

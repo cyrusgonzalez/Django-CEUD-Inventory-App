@@ -2,8 +2,8 @@
 A base system for the Engineering Technology Services at Colorado State University, up to date on all fixes with the abscense of SQL connections given the right to command all of the connections on one's own server.
 
 Requires:
-    -Using Python 3.9.7
-    -Django Framework v4.0.5
+    -Using Python 3.9.7 or better
+    -Django Framework v4.0.5 or better
     -MySql/MariaDB and/or SqLite3 (if not using default internal db.sqlite3)
 
 Before Hand:
@@ -33,3 +33,16 @@ To App:
 
 ***change the ALLOWED HOST values
 ***include wsgi, base, and manage py changes
+
+1. install Django latest verion from Django install website
+2. install python 3.9.7 at the least
+3. install libraries:
+* django-filters
+* python-dotenv
+* python-decouple
+3. initialize tables: 
+* python manage.py makemigrations accounts
+* python manage.py makemigrations main
+4. instantiate new database with all account, inventory, and app schemas: python manage.py migrate
+5. Create the superuser (Django Admin): python manage.py createsuperuser
+* Fill the entire form, and use default admin regcode: 4242466
