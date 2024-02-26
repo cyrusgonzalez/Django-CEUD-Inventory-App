@@ -30,7 +30,7 @@
 - Import/Exportability for audits and logging transactions over time:
 -- Formats: CSV, XLSX, XML, SVG/INF (for database schema movement) for import/export
 -- Locational mapping and many side interfaces on all componenets and the computers or printers that they reference
-- Relational database tie ins that rework the way that these database systems interct with other locations or storage systems 
+- Relational database tie ins that rework the way that these database systems interact with other locations or storage systems 
 - Backups for the database on a weekly cycle
 
 3. Complete reworking of the front end (the look of the app), along with how some of the features are presented.
