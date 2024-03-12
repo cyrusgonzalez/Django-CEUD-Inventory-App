@@ -34,15 +34,22 @@ To App:
 ***change the ALLOWED HOST values
 ***include wsgi, base, and manage py changes
 
-1. install Django latest verion from Django install website
-2. install python 3.9.7 at the least
+1. install Django 5.0.3 at the least or latest verion from Django website with standard installation instructions
+
+2. install python 3.9.7 at the least or latest verion from Python website
+
 3. install libraries:
-* django-filters
+* django-filter
 * python-dotenv
 * python-decouple
-3. initialize tables: 
+* python-ldap
+* django-auth-ldap
+
+4. initialize tables: 
 * python manage.py makemigrations accounts
 * python manage.py makemigrations main
-4. instantiate new database with all account, inventory, and app schemas: python manage.py migrate
-5. Create the superuser (Django Admin): python manage.py createsuperuser
+
+5. instantiate new database with all account, inventory, and app schemas: python manage.py migrate
+
+6. Create the superuser (Django Admin): python manage.py createsuperuser
 * Fill the entire form, and use default admin regcode: 4242466
