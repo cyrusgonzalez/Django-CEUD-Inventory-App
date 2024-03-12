@@ -1,6 +1,6 @@
-.env
+#.env
 db.sqlite3
 dbase.json
 connectivity.txt
 .vscode
-myenv
+#myenv

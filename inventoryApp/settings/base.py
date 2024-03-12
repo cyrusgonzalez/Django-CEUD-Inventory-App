@@ -5,9 +5,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
+import ldap
 import os
-import dotenv
+import logging
+
+from pathlib import Path
+from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,6 +37,11 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+	'django_auth_ldap.backend.LDAPBackend',
+	'django.contrib.auth.backends.ModelBackend',
 ]
 
 ROOT_URLCONF = 'inventoryApp.urls'
@@ -79,11 +87,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'MST'
-
 USE_I18N = True
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -97,13 +102,42 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "/accounts/login/"                  
-
 LOGIN_REDIRECT_URL ="/main/inventory/"
-
 LOGOUT_REDIRECT_URL = "/"
 
 USER_ADMIN_REG = os.getenv('USER_ADMIN_REG')
-
 USER_BASIC_REG = os.getenv('USER_BASIC_REG')
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+# LDAP Configuration
+
+# Logging configuration for django_auth_ldap
+logger = logging.getLogger('django_auth_ldap')
+logger.addHandler(logging.StreamHandler())
+logger.setLevel(logging.DEBUG)
+
+AUTH_LDAP_SERVER_URI = "ldap://engr.colostate.edu" #os.getenv('LDAP_SERVER_URI')
+print("LDAP Server URI:", os.getenv('LDAP_SERVER_URI'))
+
+AUTH_LDAP_BIND_DN = ""
+AUTH_LDAP_BIND_PASSWORD = ""
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+	os.getenv('LDAP_BASE_DN'),
+	ldap.SCOPE_SUBTREE,
+	os.getenv('LDAP_FILTER')
+)
+
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+	os.getenv('LDAP_GROUP_BASE_DN'),
+	ldap.SCOPE_SUBTREE,
+	os.getenv('LDAP_GROUP_FILTER')
+)
+
+AUTH_USER_ATTR_MAP = {
+	"first_name": "givenName",
+	"last_name": "sn",
+	"username": "SamAccountName",
+}
+
+AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr="cn")
