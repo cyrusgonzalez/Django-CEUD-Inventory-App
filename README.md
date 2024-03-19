@@ -17,6 +17,7 @@ Before Hand:
 For the environment variables, the following will have to be declared for testing on your own fork.
 If committing, Please make sure to create a new branch and follow it, as master will not allow commits/merge.
 
+    # MAKE SURE TO GET RID OF THE DASHES BEFORE EACH VARIABLE
     -DJANGO_SETTINGS_MODULE="inventoryApp.settings.production"
     -SECRET_KEY="YOUR-django-KEY-here-1234598765"
     -USER_ADMIN_REG="AdminCodeR3g3X"
@@ -36,14 +37,16 @@ To App:
 
 1. install Django 5.0.3 at the least or latest verion from Django website with standard installation instructions
 
-2. install python 3.9.7 at the least or latest verion from Python website
+2. install python 3.9.7 at the least or latest verion from Python website and pip libraries
 
-3. install libraries:
+3. install libraries: ('pip install' if not **)
 * django-filter
 * python-dotenv
 * python-decouple
 * python-ldap
 * django-auth-ldap
+** brew install mysql pkg-config
+* pip install mysqlclient
 
 4. initialize tables: 
 * python manage.py makemigrations accounts

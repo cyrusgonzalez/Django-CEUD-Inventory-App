@@ -5,6 +5,6 @@ from .models import Inventory
 
 @admin.register(Inventory)
 class InventoryAdmin(admin.ModelAdmin):
-	list_display = ('item_name','ser_prod_no','category_inf','lab_name_no','quantity_of',)#'threshold_val',
-	ordering = ('item_name',)
-	search_fields = ('item_name','category_inf','lab_name_no',)
+	list_display = ('item', 'lab', 'category', 'quantity', 'threshold_low', 'threshold_high')
+	ordering = ('item__name',)
+	search_fields = ('item__name', 'category__name', 'lab__name',)

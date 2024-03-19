@@ -1,19 +1,26 @@
 from django import forms
-from .models import Inventory
+from .models import Inventory, Lab, Category, Item
 import django_filters
 
 class Inventoryform(forms.ModelForm):
 
 	class Meta:
 		model = Inventory
-		fields = ['item_name','ser_prod_no','descript_inf',
-			'category_inf','lab_name_no','quantity_of',]#'threshold_val',
+		fields = ['item','lab','category','quantity','threshold_low','threshold_high']
+		widgets = {
+			'item': forms.Select(attrs={'class': 'form-control'}),
+			'lab': forms.Select(attrs={'class': 'form-control'}),
+			'category': forms.Select(attrs={'class': 'form-control'}),
+			'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
+			'threshold_low': forms.NumberInput(attrs={'class': 'form-control'}),
+			'threshold_high': forms.NumberInput(attrs={'class': 'form-control'}),
+		}
 
 class Inventoryfilter(django_filters.FilterSet):
-	item_name = django_filters.CharFilter(lookup_expr='icontains')
-	ser_prod_no = django_filters.CharFilter(lookup_expr='icontains')
-	descript_inf = django_filters.CharFilter(lookup_expr='icontains')
+	item = django_filters.CharFilter(lookup_expr='icontains')
+	lab = django_filters.CharFilter(lookup_expr='icontains')
+	category = django_filters.CharFilter(lookup_expr='icontains')
 
 	class Meta:
 		model = Inventory
-		fields = ['item_name','ser_prod_no','category_inf','lab_name_no',]
+		fields = ['item','lab','category']

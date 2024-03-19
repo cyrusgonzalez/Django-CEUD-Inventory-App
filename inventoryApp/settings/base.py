@@ -10,10 +10,17 @@ import os
 import logging
 
 from pathlib import Path
+from dotenv import load_dotenv
 from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# Use BASE_DIR to construct the path to the .env file
+dotenv_path = BASE_DIR / '.env'
+
+# Load the .env file
+load_dotenv(dotenv_path)
 
 # Application definition
 
@@ -27,11 +34,15 @@ INSTALLED_APPS = [
 	'main.apps.MainConfig',
 	'accounts.apps.AccountsConfig',
 	'django_filters',
+	'django_auth_ldap',
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -40,8 +51,8 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-	'django_auth_ldap.backend.LDAPBackend',
 	'django.contrib.auth.backends.ModelBackend',
+	'django_auth_ldap.backend.LDAPBackend',
 ]
 
 ROOT_URLCONF = 'inventoryApp.urls'
@@ -61,6 +72,8 @@ TEMPLATES = [
 		},
 	},
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'inventoryApp.wsgi.application'
 
@@ -107,6 +120,8 @@ LOGOUT_REDIRECT_URL = "/"
 
 USER_ADMIN_REG = os.getenv('USER_ADMIN_REG')
 USER_BASIC_REG = os.getenv('USER_BASIC_REG')
+# print("User Admin Reg:", USER_ADMIN_REG)
+# print("User Basic Reg:", USER_BASIC_REG)
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
@@ -117,7 +132,7 @@ logger = logging.getLogger('django_auth_ldap')
 logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
 
-AUTH_LDAP_SERVER_URI = "ldap://engr.colostate.edu" #os.getenv('LDAP_SERVER_URI')
+AUTH_LDAP_SERVER_URI = os.getenv('LDAP_SERVER_URI')
 print("LDAP Server URI:", os.getenv('LDAP_SERVER_URI'))
 
 AUTH_LDAP_BIND_DN = ""

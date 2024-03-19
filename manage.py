@@ -3,7 +3,10 @@ import os
 import sys
 import dotenv
 
+dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+
 def main():
+
 	os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'inventoryApp.settings.development')
 	
 	if os.getenv('DJANGO_SETTINGS_MODULE'):
@@ -21,6 +24,6 @@ def main():
 
 
 if __name__ == '__main__':
-	dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+	# print("Testing here........: ", os.getenv('DJANGO_SETTINGS_MODULE'))
 	main()
 
