@@ -45,6 +45,8 @@ To App:
 * python-decouple
 * python-ldap
 * django-auth-ldap
+* django-cors-headers
+* djangorestframework
 ** brew install mysql pkg-config
 * pip install mysqlclient
 

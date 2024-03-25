@@ -1,13 +1,14 @@
 from .base import *
 from decouple import config
 import os
-import dotenv
 
-# dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), '/../../.env'))
-
-SECRET_KEY = "1!@c$pdgpgmpjnpmn_8ik)2)9a$9ac*8%8$%@zryv$ahc%sr-d"
+SECRET_KEY = os.getenv('SECRET_DEV_KEY')
 
 # print("Database Host:", os.getenv('DB_HOST'))
+# print("Database Name:", os.getenv('DB_NAME'))
+# print("Database User:", os.getenv('DB_USER'))
+# print("Database Password:", os.getenv('DB_PASS'))
+# print("Database Port:", os.getenv('DB_PORT'))
 
 DEBUG = True
 
@@ -18,10 +19,10 @@ DATABASES = {
 	# },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-		'NAME': "labs_inv",
-        'USER': "root",
-        'PASSWORD': "labs-inventory-ets-mariadb",
-        'HOST': "labs-mariadb.engr.colostate.edu",
-        'PORT': 3306,
+		'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
 	}
 }
