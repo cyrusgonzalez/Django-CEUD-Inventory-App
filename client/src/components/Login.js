@@ -1,23 +1,29 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import useLogin from '../hooks/useLogin';
 
-function Login() {
-  const [message, setMessage] = useState('');
+const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const { isLoggedIn, account, error } = useLogin();
 
-  useEffect(() => {
-    axios.get('http://localhost:8000/accounts/login/')
-      .then(response => {
-        setMessage(response.data.message);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+  const handleSuccess = () => {
+    console.log("Login successful", account);
+    // Here you can redirect the user or update the UI accordingly
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    isLoggedIn(username, password, handleSuccess);
+  };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <p>{message}</p>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button type="submit">Login</button>
+      {error && <div>{error}</div>}
+    </form>
   );
-}
+};
+
+export default Login;

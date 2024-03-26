@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 	'django_filters',
 	'django_auth_ldap',
 	'rest_framework',
+	'rest_framework.authtoken',
 	'corsheaders',
 	'main.apps.MainConfig',
 	'accounts.apps.AccountsConfig',

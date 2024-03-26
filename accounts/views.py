@@ -4,10 +4,16 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.urls import reverse
+
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 from .forms import Userform, Loginform
 from .models import CustomUser
 
 # Create your views here.
+@api_view(['GET'])
 def index(request):
 	return render(request, 'index.html')
 

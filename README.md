@@ -54,7 +54,10 @@ To App:
 * python manage.py makemigrations accounts
 * python manage.py makemigrations main
 
-5. instantiate new database with all account, inventory, and app schemas: python manage.py migrate
+5. Install react and the following packages through instruction below
+* npx create-react-app client
+* cd client
+* npm install axios, react-router-dom, 
 
 6. Create the superuser (Django Admin): python manage.py createsuperuser
 * Fill the entire form, and use default admin regcode: 4242466
