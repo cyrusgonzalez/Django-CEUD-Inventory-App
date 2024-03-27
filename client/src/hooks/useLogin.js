@@ -1,21 +1,21 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import axios from 'axios';
 
-export default function useLogin() {
-    const [account, setAccount] = useState(null);
-    const [error, setError] = useState("");
+const useLogin = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const isLoggedIn = async (username, password, onSuccess) => {
+    const login = async (username, password) => {
         try {
-            const response = await axios.post('/api/login/', { username, password });
-            console.log(response.data);
-            setAccount(response.data); // Assuming response.data contains account info
-            if(onSuccess) onSuccess();
+            const response = await axios.post('/accounts/login/', { username, password });
+            localStorage.setItem('token', response.data.token); // Store token
+            setIsLoggedIn(true);
         } catch (error) {
             console.error(error);
-            setError("Failed to login"); // Simplified error handling
+            setIsLoggedIn(false);
         }
     };
 
-    return { account, isLoggedIn, error };
-}
+    return { isLoggedIn, login };
+};
+
+export default useLogin;

@@ -16,7 +16,6 @@ function HelloWorld() {
 
   return (
     <div>
-      <h1>Hello, World!</h1>
       <p>This is the home page; put instructions here.</p>
       <p>{message}</p>
     </div>
