@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
 
-
 def admin_required(function=None, login_url='accounts/login/'):
     '''
     Decorator for views that checks that the logged in user is admin,

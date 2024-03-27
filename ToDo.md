@@ -22,7 +22,7 @@
 - Forum based note taking to ensure communications on items of functions between many different people
 - Allow others to see and message groups [depending on roles and permissions]
 
-3. New privileges and roles
+3. New privileges and roles -Done
 - admin needs to be reworked
 - supervisor, students, and staff roles
 - better handling of permissions internally rather than registration

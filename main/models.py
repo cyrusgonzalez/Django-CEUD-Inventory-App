@@ -29,6 +29,7 @@ class Lab(models.Model):
 		return self.name
 	
 	class Meta:
+		managed = False
 		db_table = 'Lab'
 
 class Category(models.Model):
@@ -38,6 +39,7 @@ class Category(models.Model):
 		return self.name
 	
 	class Meta:
+		managed = False
 		db_table = 'Category'
 
 class Item(models.Model):
@@ -49,19 +51,21 @@ class Item(models.Model):
 		return self.name
 	
 	class Meta:
+		managed = False
 		db_table = 'Item'
 
 class Inventory(models.Model):
-	item = models.ForeignKey(Item, on_delete=models.CASCADE)
-	lab = models.ForeignKey(Lab, on_delete=models.CASCADE)
-	category = models.ForeignKey(Category, on_delete=models.CASCADE)
-	quantity = models.PositiveIntegerField()
-	threshold_low = models.PositiveIntegerField()
-	threshold_high = models.PositiveIntegerField()
+	item = models.ForeignKey(Item, on_delete=models.CASCADE, default=1)
+	lab = models.ForeignKey(Lab, on_delete=models.CASCADE, default=1)
+	category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+	quantity = models.PositiveIntegerField(default=0)
+	threshold_low = models.PositiveIntegerField(default=0)
+	threshold_high = models.PositiveIntegerField(default=0)
 
 	def __str__(self):
 		return f"{self.item.name} in {self.lab.name}"
 
 	class Meta:
 		ordering = [Upper('item__name')]
+		managed = False
 		db_table = 'Inventory'

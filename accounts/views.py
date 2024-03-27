@@ -1,13 +1,23 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import permission_classes, api_view
+from rest_framework.parsers import JSONParser
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+
 from .forms import Userform, Loginform
 from .models import CustomUser
 
 # Create your views here.
+@api_view(['GET'])
 def index(request):
 	return render(request, 'index.html')
 
@@ -16,45 +26,32 @@ def logoutuser(request):
 	logout(request)
 	return redirect(reverse('index'))
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def register(request):
-	if request.method == "POST":
-		form = Userform(request.POST)
-		regcode = request.POST.get("regcode")
-		if form.is_valid():
-			if regcode == settings.USER_BASIC_REG:
-				user = form.save()
-				messages.error(request, 'Registration Successful!\nUser Created')
-				return redirect(reverse('accounts:register'))
-			elif regcode == settings.USER_ADMIN_REG:
-				user = form.save_admin()
-				messages.error(request, 'Registration Successful!\nAdmin Created')
-				return redirect(reverse('accounts:register'))
-			else:
-				messages.error(request, "Failed Registration:\nRegistrastion code is invalid")
-		else:
-			messages.error(request, 'Failed Registration:\nPassword does not meet expectations')
-			return render(request, 'registerpage.html', {})
-	else:
-		form = Userform()
-	return render(request, 'registerpage.html',
-		{'form':form})
+    data = JSONParser().parse(request)
+    form = Userform(data)
+    if form.is_valid():
+        user = form.save()
+        return JsonResponse({'message': 'Registration successful'}, status=200)
+    else:
+        return JsonResponse({'errors': form.errors}, status=400)
 
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def loginuser(request):
-	if request.method == 'POST':
-		form = Loginform(request.POST)
-		if form.is_valid():
-			username = form.cleaned_data["username"]
-			password = form.cleaned_data["password"]
-			user = authenticate(username=username, password=password)
-			if user:
-				login(request, user)
-				return redirect(reverse('main:inventorypage'))
-			else:
-				messages.error(request, 'Failed Login:\nInvalid Credientials')
-				return render(request, 'loginpage.html',{'form':form,})
-	else:
-		form = Loginform()
-	return render(request, 'loginpage.html',{'form':form,})
+    data = JSONParser().parse(request)
+    username = data.get('username')
+    password = data.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user:
+        login(request, user)
+        # Assuming you're using Django's Token authentication
+        token, created = Token.objects.get_or_create(user=user)
+        return JsonResponse({'token': token.key}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid Credentials'}, status=400)
 
 def users(request):
 	showusers = CustomUser.objects.all

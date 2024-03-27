@@ -31,28 +31,30 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'main.apps.MainConfig',
-	'accounts.apps.AccountsConfig',
 	'django_filters',
 	'django_auth_ldap',
-    'rest_framework',
-    'corsheaders',
+	'rest_framework',
+	'rest_framework.authtoken',
+	'corsheaders',
+	'main.apps.MainConfig',
+	'accounts.apps.AccountsConfig',
+
 ]
 
 MIDDLEWARE = [
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'corsheaders.middleware.CorsMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = [
 	'django.contrib.auth.backends.ModelBackend',
-	'django_auth_ldap.backend.LDAPBackend',
+	# 'django_auth_ldap.backend.LDAPBackend',
 ]
 
 ROOT_URLCONF = 'inventoryApp.urls'
@@ -74,6 +76,10 @@ TEMPLATES = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 WSGI_APPLICATION = 'inventoryApp.wsgi.application'
 
@@ -115,7 +121,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "/accounts/login/"                  
-LOGIN_REDIRECT_URL ="/main/inventory/"
+LOGIN_REDIRECT_URL ="/main/inventory/home/"
 LOGOUT_REDIRECT_URL = "/"
 
 USER_ADMIN_REG = os.getenv('USER_ADMIN_REG')
@@ -133,7 +139,7 @@ logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
 
 AUTH_LDAP_SERVER_URI = os.getenv('LDAP_SERVER_URI')
-print("LDAP Server URI:", os.getenv('LDAP_SERVER_URI'))
+# print("LDAP Server URI:", os.getenv('LDAP_SERVER_URI'))
 
 AUTH_LDAP_BIND_DN = ""
 AUTH_LDAP_BIND_PASSWORD = ""

@@ -1,16 +1,26 @@
 from __future__ import unicode_literals
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-#from django.core.paginator import Paginator
-from django.db.models.functions import Upper
+# from django.core.paginator import Paginator
+# from django.db.models.functions import Upper
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.shortcuts import render
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from accounts.models import CustomUser
 from accounts.decorators import admin_required
+
 from .forms import Inventoryform, Inventoryfilter
 from .models import Inventory
 
 # Create your views here.
+
+@login_required
+@api_view(['GET'])
+def home(request):
+	return Response({'message': 'Hello, world!'})
 
 @login_required
 def inventorypage(request):

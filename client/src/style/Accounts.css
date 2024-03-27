@@ -1,0 +1,48 @@
+h1 {text-align: center;}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password],  select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+div {
+    border-radius: 5px;
+    background-color: #1E4D2B;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: Open Sans Semibold, Helvetica, sans-serif;
+}
+.myUl {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 18%;
+    background-color: #111;
+    position: fixed;
+    height: 98%;
+    overflow: auto;
+}
+.myLi a {
+    display: block;
+    color: white;
+    padding: 16px 16px;
+    text-decoration: none;
+    font-size: 18px;
+}
+.myLi a:hover {
+    background-color: #555;
+    color: white;
+}
