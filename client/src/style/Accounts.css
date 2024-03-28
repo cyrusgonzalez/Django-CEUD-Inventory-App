@@ -32,7 +32,7 @@ div {
     width: 18%;
     background-color: #111;
     position: fixed;
-    height: 98%;
+    height: 100%;
     overflow: auto;
 }
 .myLi a {
@@ -45,4 +45,10 @@ div {
 .myLi a:hover {
     background-color: #555;
     color: white;
+}
+.div-accounts {
+    margin-left: 18%;
+    padding: 1px 16px;
+    height: 100%;
+    /* position: absolute; */
 }

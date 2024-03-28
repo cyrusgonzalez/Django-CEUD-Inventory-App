@@ -15,7 +15,10 @@ function HelloWorld() {
   }, []);
 
   return (
-    <div>
+    <div className='div-accounts'>
+      <br />
+      <h1>ETS Labs Inventory Home Page</h1>
+      <br />
       <p>This is the home page; put instructions here.</p>
       <p>{message}</p>
     </div>

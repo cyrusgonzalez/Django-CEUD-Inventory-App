@@ -1,3 +1,4 @@
+import '../style/Accounts.css';
 import React, { useState } from 'react';
 import useRegister from '../hooks/useRegister';
 
@@ -16,7 +17,10 @@ const RegisterForm = () => {
     };
 
     return (
-        <div>
+        <div className='div-accounts'>
+            <br />
+            <h1>ETS Labs Inventory Registration Page</h1>
+            <br />
             <form method="POST" onSubmit={handleSubmit}>
                 <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} placeholder='First Name' />
                 <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} placeholder='Last Name' />
