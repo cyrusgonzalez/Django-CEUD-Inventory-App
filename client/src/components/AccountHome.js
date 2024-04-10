@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function HelloWorld() {
+function AccountHome() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8000/inventory/home/')
+    axios.get('http://localhost:8000')
       .then(response => {
         setMessage(response.data.message);
       })
@@ -25,4 +25,4 @@ function HelloWorld() {
   );
 }
 
-export default HelloWorld;
+export default AccountHome;

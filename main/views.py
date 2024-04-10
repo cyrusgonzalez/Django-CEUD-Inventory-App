@@ -7,7 +7,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.shortcuts import render
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from accounts.models import CustomUser
 from accounts.decorators import admin_required
@@ -17,18 +18,20 @@ from .models import Inventory
 
 # Create your views here.
 
-@login_required
 @api_view(['GET'])
+
 def home(request):
 	return Response({'message': 'Hello, world!'})
 
-@login_required
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def inventorypage(request):
 	f = Inventoryfilter(request.GET, queryset=Inventory.objects.all())
-	return render(request, "inventorypage.html", {'f': f})
+	return Response({'inventory': f})
 
-@login_required
 @admin_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def additem(request):
 	if(request.method == 'POST'):
 		item_name = request.POST['item_name']
@@ -52,8 +55,9 @@ def additem(request):
 	else:
 		return render(request, 'additem.html')
 
-@login_required
 @admin_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def edititem(request, item_id):
 	item = Inventory.objects.get(pk=item_id)
 	if (request.method == 'POST'):
@@ -77,21 +81,24 @@ def edititem(request, item_id):
 	context = {'item':item}
 	return render(request, 'edititem.html', context)
 
-@login_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def increment(request, item_id):
 	item = Inventory.objects.get(pk=item_id)
 	item.quantity_of += 1
 	item.save()
 	return redirect(reverse('main:inventorypage'))
 
-@login_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def increment10(request, item_id):
 	item = Inventory.objects.get(pk=item_id)
 	item.quantity_of += 10
 	item.save()
 	return redirect(reverse('main:inventorypage'))
 
-@login_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def decrement(request, item_id):
 	item = Inventory.objects.get(pk=item_id)
 	if 0 <= (item.quantity_of - 1):
@@ -101,7 +108,8 @@ def decrement(request, item_id):
 	messages.error(request, "Cannot go lower than 0, delete item in 'Edit/Delete Items' tab")
 	return redirect(reverse('main:inventorypage'))
 
-@login_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def decrement10(request, item_id):
 	item = Inventory.objects.get(pk=item_id)
 	if 0 <= (item.quantity_of - 10):
@@ -111,14 +119,16 @@ def decrement10(request, item_id):
 	messages.error(request, "Cannot go lower than 0, delete item in 'Edit/Delete Items' tab")
 	return redirect(reverse('main:inventorypage'))
 
-@login_required
 @admin_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def changeitem(request):
 	showItem = Inventory.objects.all
 	return render(request, 'changeitem.html', {'allitems':showItem})
 
-@login_required
 @admin_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def deleteitem(request, item_id):
 	item = Inventory.objects.get(pk=item_id)
 	if (request.method == 'POST'):
@@ -126,14 +136,16 @@ def deleteitem(request, item_id):
 		return redirect(reverse('main:changeitem'))
 	return render(request, "deleteitem.html", {'item':item})
 
-@login_required
 @admin_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def changeuser(request):
 	showItem = CustomUser.objects.all
 	return render(request, 'changeuser.html', {'allusers':showItem})
 
-@login_required
 @admin_required
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def deleteuser(request, item_id):
 	item = CustomUser.objects.get(pk=item_id)
 	if (request.method == 'POST'):

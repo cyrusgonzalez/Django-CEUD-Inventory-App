@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+	'corsheaders.middleware.CorsMiddleware',
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
@@ -49,13 +50,19 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	'corsheaders.middleware.CorsMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = [
 	'django.contrib.auth.backends.ModelBackend',
+    'rest_framework.authentication.TokenAuthentication',
 	# 'django_auth_ldap.backend.LDAPBackend',
 ]
+
+REST_FRAMEWORK = {
+	'DEFAULT_AUTHENTICATION_CLASSES': [
+		'rest_framework.authentication.TokenAuthentication',
+	]
+}
 
 ROOT_URLCONF = 'inventoryApp.urls'
 
@@ -79,6 +86,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://127.0.0.1:8000",
 ]
 
 WSGI_APPLICATION = 'inventoryApp.wsgi.application'
@@ -120,8 +128,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = "/accounts/login/"                  
-LOGIN_REDIRECT_URL ="/main/inventory/home/"
+LOGIN_URL = "/accounts/login"                  
+LOGIN_REDIRECT_URL ="/inventory/home"
 LOGOUT_REDIRECT_URL = "/"
 
 USER_ADMIN_REG = os.getenv('USER_ADMIN_REG')
