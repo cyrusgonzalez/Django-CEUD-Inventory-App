@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # from django.core.paginator import Paginator
-# from django.db.models.functions import Upper
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.shortcuts import render
@@ -17,11 +16,6 @@ from .forms import Inventoryform, Inventoryfilter
 from .models import Inventory
 
 # Create your views here.
-
-@api_view(['GET'])
-
-def home(request):
-	return Response({'message': 'Hello, world!'})
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

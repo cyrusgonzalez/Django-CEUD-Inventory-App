@@ -1,10 +1,9 @@
 // LoginForm.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useLogin from '../hooks/useLogin';
-import axios from 'axios';
 
-const LoginForm = () => {
-  const { login } = useLogin();
+const LoginForm = ({setIsLoggedIn}) => {
+  const { login } = useLogin(setIsLoggedIn);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 

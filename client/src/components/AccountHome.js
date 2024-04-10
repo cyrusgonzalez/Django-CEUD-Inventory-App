@@ -5,7 +5,7 @@ function AccountHome() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8000')
+    axios.get('http://localhost:8000/accounts')
       .then(response => {
         setMessage(response.data.message);
       })

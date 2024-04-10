@@ -5,7 +5,7 @@ function InventoryHome() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8000/inventory/')
+    axios.get('http://localhost:8000/main')
       .then(response => {
         setMessage(response.data.message);
       })
@@ -15,11 +15,11 @@ function InventoryHome() {
   }, []);
 
   return (
-    <div className='div-accounts'>
+    <div className='div-inventory'>
       <br />
       <h1>ETS Labs Inventory Home Page</h1>
       <br />
-      <p>This is the home page; put instructions here.</p>
+      <p>Will the database materials go here?</p>
       <p>{message}</p>
     </div>
   );

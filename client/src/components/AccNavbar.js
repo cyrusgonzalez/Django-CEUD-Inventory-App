@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../style/Accounts.css';
 
-function StaticNavBar() {
+function StaticAccNavBar() {
   return (
     <nav>
       <ul class='myUl'>
@@ -14,4 +14,4 @@ function StaticNavBar() {
   );
 }
 
-export default StaticNavBar;
+export default StaticAccNavBar;
