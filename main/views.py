@@ -1,79 +1,63 @@
 from __future__ import unicode_literals
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-# from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.shortcuts import render
 
+from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+
 from accounts.models import CustomUser
 from accounts.decorators import admin_required
-
 from .forms import Inventoryform, Inventoryfilter
-from .models import Inventory
+from .models import Inventory, Lab, Category, Item
+from .serializers import InventorySerializer, LabSerializer, CategorySerializer, ItemSerializer
+
 
 # Create your views here.
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def inventorypage(request):
-	f = Inventoryfilter(request.GET, queryset=Inventory.objects.all())
-	return Response({'inventory': f})
+    inventories = Inventory.objects.all()
+    serializer = InventorySerializer(inventories, many=True)
+    return Response(serializer.data)
 
-@admin_required
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def additem(request):
-	if(request.method == 'POST'):
-		item_name = request.POST['item_name']
-		ser_prod_no = request.POST['ser_prod_no']
-		descript_inf = request.POST['descript_inf']
-		category_inf = request.POST['category_inf']
-		lab_name_no = request.POST['lab_name_no']
-		quantity_of = request.POST['quantity_of']
-		#threshold_val = request.POST['threshold_val']
-		form = Inventoryform(request.POST)
-		if form.is_valid():
-			if Inventory.objects.filter(item_name = item_name, lab_name_no = lab_name_no).exists():
-				messages.error(request, "Error: This item already exist")
-			else:
-				item = Inventory(item_name = item_name, ser_prod_no = ser_prod_no, 
-					descript_inf = descript_inf, category_inf = category_inf,
-					lab_name_no = lab_name_no, quantity_of = quantity_of, 
-					)#threshold_val = threshold_val
-				item.save()
-			return redirect(reverse('main:inventorypage'))
-	else:
-		return render(request, 'additem.html')
+    serializer = InventorySerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@admin_required
-@api_view(['POST'])
+@api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def edititem(request, item_id):
-	item = Inventory.objects.get(pk=item_id)
-	if (request.method == 'POST'):
-		item_name = request.POST['item_name']
-		ser_prod_no = request.POST['ser_prod_no']
-		descript_inf = request.POST['descript_inf']
-		quantity_of = request.POST['quantity_of']
-		lab_name_no = request.POST['lab_name_no']
-		category_inf = request.POST['category_inf']
-		#threshold_val = request.POST['threshold_val']
-		form = Inventoryform(request.POST)
-		if form.is_valid():
-			Inventory.objects.filter(pk=item_id).update(item_name=item_name)
-			Inventory.objects.filter(pk=item_id).update(ser_prod_no=ser_prod_no)
-			Inventory.objects.filter(pk=item_id).update(descript_inf=descript_inf)
-			Inventory.objects.filter(pk=item_id).update(quantity_of=quantity_of)
-			Inventory.objects.filter(pk=item_id).update(lab_name_no=lab_name_no)
-			Inventory.objects.filter(pk=item_id).update(category_inf=category_inf)
-			#Inventory.objects.filter(pk=item_id).update(threshold_val=threshold_val)
-		return redirect(reverse('main:changeitem'))
-	context = {'item':item}
-	return render(request, 'edititem.html', context)
+    try:
+        item = Inventory.objects.get(pk=item_id)
+    except Inventory.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = InventorySerializer(item, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteitem(request, item_id):
+    try:
+        item = Inventory.objects.get(pk=item_id)
+    except Inventory.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    item.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -119,16 +103,6 @@ def decrement10(request, item_id):
 def changeitem(request):
 	showItem = Inventory.objects.all
 	return render(request, 'changeitem.html', {'allitems':showItem})
-
-@admin_required
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def deleteitem(request, item_id):
-	item = Inventory.objects.get(pk=item_id)
-	if (request.method == 'POST'):
-		item.delete()
-		return redirect(reverse('main:changeitem'))
-	return render(request, "deleteitem.html", {'item':item})
 
 @admin_required
 @api_view(['POST'])

@@ -51,10 +51,12 @@ export default function App() {
               <Route path="/main/additem" element={<AddItem />} />
               <Route path="/main/addlab" element={<AddLab />} />
               <Route path="/main/addcategory" element={<AddCategory />} />
-              <Route path="/main/edititem" element={<EditItem />} />
-              <Route path="/main/deleteitem" element={<DeleteItem />} />
-              <Route path="/main/deletelab" element={<DeleteLab />} />
-              <Route path="/main/deletecategory" element={<DeleteCategory />} />
+              <Route path="/main/edititem/:item_id" element={<EditItem />} />
+              <Route path="/main/deleteitem/:item_id" element={<DeleteItem />} />
+              <Route path="/main/deletelab/:item_id" element={<DeleteLab />} />
+              <Route path="/main/deletecategory/:item_id" element={<DeleteCategory />} />
+              <Route path="/accounts" element={<Navigate replace to="/main" />} />
+              <Route path="*" element={<Navigate replace to="/main" />} />
           </Routes>
         </>
       )}
