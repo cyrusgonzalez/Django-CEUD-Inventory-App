@@ -15,7 +15,7 @@ function InventoryHome() {
   }, []);
 
   return (
-    <div className='div-inventory'>
+    <div className='div-inventory' style={{ marginLeft: '18%', padding: '2% 2%', height: '100%', color: 'white' }}>
       <br />
       <h1>ETS Labs Inventory Home Page</h1>
       <br />

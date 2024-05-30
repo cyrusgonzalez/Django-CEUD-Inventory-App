@@ -24,7 +24,7 @@ const EditItem = () => {
     axios.get('http://localhost:8000/api/categories/').then(response => setCategories(response.data));
     
     // Fetch item data
-    axios.get(`http://localhost:8000/main/inventory/edit/${item_id}`)
+    axios.get(`http://localhost:8000/main/edititem/${item_id}`)
       .then(response => {
         setFormData(response.data);
       })

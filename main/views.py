@@ -27,6 +27,15 @@ def inventorypage(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
+def addinventory(request):
+	serializer = InventorySerializer(data=request.data)
+	if serializer.is_valid():
+		serializer.save()
+		return Response(serializer.data, status=status.HTTP_201_CREATED)
+	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def additem(request):
     serializer = InventorySerializer(data=request.data)
     if serializer.is_valid():
@@ -58,6 +67,38 @@ def deleteitem(request, item_id):
     
     item.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def addcategory(request):
+	categories = Category.objects.all()
+	serializer = CategorySerializer(categories, many=True)
+	return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def deletecategory(request, item_id):
+	item = Category.objects.get(pk=item_id)
+	if (request.method == 'POST'):
+		item.delete()
+		return redirect(reverse('main:changecategory'))
+	return render(request, "deletecategory.html", {'item':item})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def addlab(request):
+	labs = Lab.objects.all()
+	serializer = LabSerializer(labs, many=True)
+	return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def deletelab(request, item_id):
+	item = Lab.objects.get(pk=item_id)
+	if (request.method == 'POST'):
+		item.delete()
+		return redirect(reverse('main:changelab'))
+	return render(request, "deletelab.html", {'item':item})
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -96,20 +137,6 @@ def decrement10(request, item_id):
 		return redirect(reverse('main:inventorypage'))
 	messages.error(request, "Cannot go lower than 0, delete item in 'Edit/Delete Items' tab")
 	return redirect(reverse('main:inventorypage'))
-
-@admin_required
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def changeitem(request):
-	showItem = Inventory.objects.all
-	return render(request, 'changeitem.html', {'allitems':showItem})
-
-@admin_required
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def changeuser(request):
-	showItem = CustomUser.objects.all
-	return render(request, 'changeuser.html', {'allusers':showItem})
 
 @admin_required
 @api_view(['POST'])
