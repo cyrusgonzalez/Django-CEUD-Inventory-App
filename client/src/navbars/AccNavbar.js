@@ -4,7 +4,7 @@ import '../style/Accounts.css';
 
 function StaticAccNavBar() {
   return (
-    <nav>
+    <nav >
       <ul class='myUl'>
         <li class='myLi'><Link to="/accounts">Home</Link></li>
         <li class='myLi'><Link to="/accounts/login">Login</Link></li>

@@ -1,6 +1,7 @@
 import '../style/Accounts.css';
 import React, { useState } from 'react';
 import useRegister from '../hooks/useRegister';
+import '../style/Accounts.css';
 
 const RegisterForm = () => {
     const { register } = useRegister();
@@ -29,7 +30,7 @@ const RegisterForm = () => {
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password Here' />
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Confirm Password' />
                 <input type="text" value={regcode} onChange={(e) => setRegcode(e.target.value)} placeholder="Registration Code" />
-                <button variant='primary' size='lg' type="submit">Register</button>
+                <button variant='primary' type="submit" className='buttonAcc'>Register</button>
             </form>
         </div>
     );

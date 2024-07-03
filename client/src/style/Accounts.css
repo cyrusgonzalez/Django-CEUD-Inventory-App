@@ -1,54 +1,83 @@
 h1 {text-align: center;}
 input[type=text], select {
-    width: 100%;
+    width: 90%;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 8px 8px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
-input[type=password],  select {
+input[type=email], select {
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 8px 0px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+input[type=password], select {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=int], select {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+button {
+    size: 100%;
+}
+.buttonAcc {
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 16px;
+    text-emphasis-color: black;
 }
 div {
     border-radius: 5px;
     background-color: #1E4D2B;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 2px;
     box-sizing: border-box;
     font-family: Open Sans Semibold, Helvetica, sans-serif;
 }
 .myUl {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1px 8px;
+    height: 100%;
     width: 18%;
     background-color: #111;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
 }
 .myLi a {
     display: block;
     color: white;
     padding: 16px 16px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 100%;
 }
 .myLi a:hover {
     background-color: #555;
     color: white;
 }
 .div-accounts {
-    margin-left: 18%;
-    padding: 1px 16px;
+    position: fixed;
+    left: 18%;
+    padding: 1px 8px;
+    padding-bottom: 8px;
     height: 100%;
-    /* position: absolute; */
+    width: 82%;
 }

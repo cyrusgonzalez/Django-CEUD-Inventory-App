@@ -1,89 +1,135 @@
-.myt {
-    font-family: Open Sans Semibold, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+/* styles.css */
+body {
+font-family: 'Open Sans Semibold', Helvetica, sans-serif;
 }
-.myt-th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #1E4D2B;
-    color: white;
+
+.div{
+    margin-Left: '20%';
+    padding: '2% 2%';
+    height: '100%';
+    color: 'white';
 }
-.myt-td, .myt-th {
-    border: 1px solid #ddd;
-    padding: 8px;
+
+.container {
+margin-top: 2%;
+color: #1E4D2B;
+background-color: #FFFFFF;
+padding: 2%;
+min-height: 100vh;
 }
-.myt-tr:nth-child(even){
-    background-color: #f2f2f2;
+
+.button-primary {
+margin-bottom: 20px;
+background-color: #1E4D2B;
+color: #FFFFFF;
 }
-.myt-tr:hover {
-    background-color: #ddd;
+
+.table {
+margin-left: 20%;
+width: 100%;
+max-width: 100%;
+overflow-x: auto;
+border-collapse: collapse;
 }
-h1 {
-    text-align: center;
+
+.table th, .table td {
+border: 1px solid #ddd;
+padding: 8px;
 }
-input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+
+.table th {
+padding-top: 12px;
+padding-bottom: 12px;
+text-align: left;
+background-color: #1E4D2B;
+color: white;
 }
-input[type=password],  select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+
+.table tr:hover {
+background-color: #ddd;
+color: #111;
 }
-.add {
-    border-radius: 5px;
-    background-color: #1E4D2B;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    color:white;
-    padding:2% 2%;
-    font-family: Open Sans Semibold, Helvetica, sans-serif;
+
+.input-field, select {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
 }
-.myUl {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 18%;
-    background-color: #111;
+
+.add-button {
+border-radius: 5px;
+background-color: #1E4D2B;
+border: 1px solid #ccc;
+color: white;
+padding: 2% 2%;
+font-family: 'Open Sans Semibold', Helvetica, sans-serif;
+}
+
+.sidebar {
+list-style-type: none;
+margin: 0;
+padding: 0;
+width: 18%;
+background-color: #111;
+position: fixed;
+height: 100%;
+overflow: auto;
+}
+
+.sidebar a {
+display: block;
+color: white;
+padding: 16px;
+text-decoration: none;
+font-size: 18px;
+}
+
+.sidebar a:hover {
+background-color: #555;
+color: white;
+}
+
+.search-bar {
+background-color: #1E4D2B;
+color: white;
+padding: 2px;
+font-family: 'Open Sans Semibold', Helvetica, sans-serif;
+margin-top: 2px;
+width: 100%;
+}
+
+.search-item {
+display: inline;
+width: 19%;
+float: left;
+margin-left: 2px;
+}
+
+.MuiDataGrid-root {
+border: none !important;
+}
+
+.MuiButtonBase-root {
+color: #000000 !important;
+}
+
+.MuiDataGrid-columnHeaders {
+border-bottom: none !important;
+}
+
+.MuiDataGrid-cell {
+border-bottom: none !important;
+}
+
+.modal-overlay {
     position: fixed;
-    height: 98%;
-    overflow: auto;
-}
-.myLi-a {
-    display: block;
-    color: white;
-    padding: 16px 16px;
-    text-decoration: none;
-    font-size: 18px;
-}
-.myLi-a:hover {
-    background-color: #555;
-    color: white;
-}
-.search {
-    background-color: #1E4D2B;
-    color:white;
-    padding:2px 2px;
-    font-family: Open Sans Semibold, Helvetica, sans-serif;
-    margin-top:2px;
-    width:100%;
-    overflow: hidden
-}
-.search-li {
-    display:inline;
-    width:19%;
-    float:left;
-    margin-left:2px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }

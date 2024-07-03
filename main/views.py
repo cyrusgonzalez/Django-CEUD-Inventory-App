@@ -43,15 +43,61 @@ def additem(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def addlab(request):
+	lab = LabSerializer(data=request.data)
+	if lab.is_valid():
+		lab.save()
+		return Response(lab.data, status=status.HTTP_201_CREATED)
+	return Response(lab.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def addcategory(request):
+    serializer = CategorySerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def edititem(request, item_id):
     try:
-        item = Inventory.objects.get(pk=item_id)
-    except Inventory.DoesNotExist:
+        item = Item.objects.get(pk=item_id)
+    except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    serializer = InventorySerializer(item, data=request.data)
+
+    serializer = ItemSerializer(item, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def editlab(request, lab_id):
+    try:
+        lab = Lab.objects.get(pk=lab_id)
+    except Lab.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = LabSerializer(lab, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def editcategory(request, category_id):
+    try:
+        category = Category.objects.get(pk=category_id)
+    except Category.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = CategorySerializer(category, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
@@ -61,46 +107,45 @@ def edititem(request, item_id):
 @permission_classes([IsAuthenticated])
 def deleteitem(request, item_id):
     try:
-        item = Inventory.objects.get(pk=item_id)
-    except Inventory.DoesNotExist:
+        item = Item.objects.get(pk=item_id)
+    except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    
+
     item.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET'])
+@api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
-def addcategory(request):
-	categories = Category.objects.all()
-	serializer = CategorySerializer(categories, many=True)
-	return Response(serializer.data)
+def deletelab(request, lab_id):
+    try:
+        lab = Lab.objects.get(pk=lab_id)
+    except Lab.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['GET'])
+    lab.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
-def deletecategory(request, item_id):
-	item = Category.objects.get(pk=item_id)
-	if (request.method == 'POST'):
-		item.delete()
-		return redirect(reverse('main:changecategory'))
-	return render(request, "deletecategory.html", {'item':item})
+def deletecategory(request, category_id):
+    try:
+        category = Category.objects.get(pk=category_id)
+    except Category.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def addlab(request):
-	labs = Lab.objects.all()
-	serializer = LabSerializer(labs, many=True)
-	return Response(serializer.data)
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def deletelab(request, item_id):
-	item = Lab.objects.get(pk=item_id)
-	if (request.method == 'POST'):
-		item.delete()
-		return redirect(reverse('main:changelab'))
-	return render(request, "deletelab.html", {'item':item})
-
+    category.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+	
+@admin_required
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def deleteuser(request, item_id):
+	item = CustomUser.objects.get(pk=item_id)
+	if (request.method == 'POST'):
+		item.delete()
+		return redirect(reverse('main:changeuser'))
+	return render(request, "deleteuser.html", {'item':item})@api_view(['POST'])
+
 @permission_classes([IsAuthenticated])
 def increment(request, item_id):
 	item = Inventory.objects.get(pk=item_id)
@@ -138,12 +183,3 @@ def decrement10(request, item_id):
 	messages.error(request, "Cannot go lower than 0, delete item in 'Edit/Delete Items' tab")
 	return redirect(reverse('main:inventorypage'))
 
-@admin_required
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def deleteuser(request, item_id):
-	item = CustomUser.objects.get(pk=item_id)
-	if (request.method == 'POST'):
-		item.delete()
-		return redirect(reverse('main:changeuser'))
-	return render(request, "deleteuser.html", {'item':item})

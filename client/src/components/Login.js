@@ -1,6 +1,7 @@
 // LoginForm.js
 import React, { useState } from 'react';
 import useLogin from '../hooks/useLogin';
+import '../style/Accounts.css';
 
 const LoginForm = ({setIsLoggedIn}) => {
   const { login } = useLogin(setIsLoggedIn);
@@ -18,9 +19,9 @@ const LoginForm = ({setIsLoggedIn}) => {
       <h1>ETS Labs Inventory Login Page</h1>
       <br />
       <form onSubmit={handleSubmit}>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button type="submit">Login</button>
+        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Username'/>
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password'/>
+        <button variant='primary' type="submit" class="buttonAcc" >Login</button>
       </form>
     </div>
   );

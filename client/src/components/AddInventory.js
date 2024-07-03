@@ -15,9 +15,9 @@ function AddInventory() {
   });
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/items/').then(response => setItems(response.data));
-    axios.get('http://localhost:8000/api/labs/').then(response => setLabs(response.data));
-    axios.get('http://localhost:8000/api/categories/').then(response => setCategories(response.data));
+    axios.get('http://localhost:8000/inventory/api/items/').then(response => setItems(response.data));
+    axios.get('http://localhost:8000/inventory/api/labs/').then(response => setLabs(response.data));
+    axios.get('http://localhost:8000/inventory/api/categories/').then(response => setCategories(response.data));
   }, []);
 
   const handleChange = (e) => {
@@ -29,7 +29,7 @@ function AddInventory() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/api/inventories/', formData)
+    axios.post('http://localhost:8000/inventory/main/addinventory/', formData)
       .then(response => {
         console.log(response.data);
         alert('Inventory added successfully!');

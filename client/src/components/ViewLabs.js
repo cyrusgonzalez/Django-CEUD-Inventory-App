@@ -7,34 +7,37 @@ function ViewLabs() {
   const [editedLab, setEditedLab] = useState({});
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/labs/')
+    axios.get('http://localhost:8000/inventory/api/labs/')
       .then(response => setLabs(response.data))
       .catch(error => console.error(error));
   }, []);
 
   const handleEdit = (lab) => {
-    setEditing(lab.id);
+    setEditing(lab.lab_id);  // Ensure this matches your database primary key
     setEditedLab(lab);
   };
 
   const handleSave = (id) => {
-    axios.put(`http://localhost:8000/api/labs/${id}/`, editedLab)
+    console.log('Saving location with ID:', id);
+    console.log('Data being sent:', editedLab);
+    axios.put(`http://localhost:8000/inventory/editlab/${id}/`, editedLab)
       .then(response => {
-        setLabs(labs.map(lab => lab.id === id ? response.data : lab));
+        setLabs(labs.map(lab => lab.lab_id === id ? response.data : lab));
         setEditing(null);
       })
       .catch(error => console.error(error));
   };
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8000/api/labs/${id}/`)
-      .then(() => setLabs(labs.filter(lab => lab.id !== id)))
+    console.log('Deleting location with ID:', id);
+    axios.delete(`http://localhost:8000/inventory/deletelab/${id}/`)
+      .then(() => setLabs(labs.filter(lab => lab.lab_id !== id)))
       .catch(error => console.error(error));
   };
 
   return (
     <div style={{ marginLeft: '18%', padding: '2% 2%', height: '100%', color: 'white' }}>
-      <h1>View Labs</h1>
+      <h1>View Labs/Closet spaces</h1>
       <table>
         <thead>
           <tr>
@@ -44,12 +47,12 @@ function ViewLabs() {
         </thead>
         <tbody>
           {labs.map(lab => (
-            <tr key={lab.id}>
-              {editing === lab.id ? (
+            <tr key={lab.lab_id}>
+              {editing === lab.lab_id ? (
                 <>
                   <td><input value={editedLab.name} onChange={(e) => setEditedLab({ ...editedLab, name: e.target.value })} /></td>
                   <td>
-                    <button onClick={() => handleSave(lab.id)}>Save</button>
+                    <button onClick={() => handleSave(lab.lab_id)}>Save</button>
                     <button onClick={() => setEditing(null)}>Cancel</button>
                   </td>
                 </>
@@ -58,7 +61,7 @@ function ViewLabs() {
                   <td>{lab.name}</td>
                   <td>
                     <button onClick={() => handleEdit(lab)}>Edit</button>
-                    <button onClick={() => handleDelete(lab.id)}>Delete</button>
+                    <button onClick={() => handleDelete(lab.lab_id)}>Delete</button>
                   </td>
                 </>
               )}
