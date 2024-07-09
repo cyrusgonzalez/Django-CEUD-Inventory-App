@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Button, Container, TextField } from '@mui/material';
 
 function AddCategory() {
   const [name, setName] = useState('');
@@ -22,19 +23,23 @@ function AddCategory() {
 
   return (
     <div style={{ marginLeft: '18%', padding: '2% 2%', height: '100%', color: 'white' }}>
-      <h1>Add Category</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <button type="submit">Add</button>
-        <button type="button" onClick={handleCancel}>Cancel</button>
-      </form>
+      <Container>
+        <h1>Add Category</h1>
+        <form onSubmit={handleSubmit}>
+            <TextField
+              autoFocus
+              margin="dense"
+              name="name"
+              label="New Category Name"
+              type="text"
+              fullWidth
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          <Button type="submit" variant='contained' color='primary'>Add</Button>
+          <Button type="button" onClick={handleCancel} color='secondary'>Cancel</Button>
+        </form>
+      </Container>
     </div>
   );
 }

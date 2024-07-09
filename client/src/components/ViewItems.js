@@ -87,9 +87,9 @@ function ViewItems() {
   }));
 
   return (
-    <div >
+    <div style={{marginLeft: '20%'}}>
       <h1>View Items</h1>
-      <table className='table'>
+      <table>
         <thead>
           <tr>
             <th>Name</th>

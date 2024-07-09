@@ -1,14 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Button, Container } from '@mui/material';
 
 function DeleteCategory() {
-  const { id } = useParams();
+  const [name, setName] = useState('');
+  const { cat_id } = useParams();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    axios.get(`http://localhost:8000/inventory/api/categories/${cat_id}/`)
+      .then(response => {
+        setName(response.data.name);
+      })
+      .catch(error => console.error('Error fetching category:', error));
+  }, [cat_id]);
+
   const handleDelete = () => {
-    axios.delete(`http://localhost:8000/inventory/deletecategory/${id}/`)
+    axios.delete(`http://localhost:8000/inventory/deletecategory/${cat_id}/`)
       .then(() => {
         navigate('/viewcategories');
       })
@@ -20,20 +29,14 @@ function DeleteCategory() {
   };
 
   return (
-    <Container>
-      <Dialog open={true} onClose={handleCancel}>
-        <DialogTitle>Confirm Delete</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete this category? This action cannot be undone.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCancel} color="primary">Cancel</Button>
-          <Button onClick={handleDelete} color="secondary">Delete</Button>
-        </DialogActions>
-      </Dialog>
-    </Container>
+    <div style={{ marginLeft: '18%', padding: '2% 2%', height: '100%', color: 'white' }}>
+      <Container>
+        <h1>Delete Category</h1>
+        <p>Are you sure you want to delete the '<strong>{name}</strong>' category? This action cannot be undone.</p>
+        <Button type='submit' onClick={handleDelete} variant="contained" color="primary">Delete</Button>
+        <Button type='button' onClick={handleCancel} color="secondary">Cancel</Button>
+      </Container>
+    </div>
   );
 }
 

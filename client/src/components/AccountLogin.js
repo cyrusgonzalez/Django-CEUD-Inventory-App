@@ -1,4 +1,3 @@
-// LoginForm.js
 import React, { useState } from 'react';
 import useLogin from '../hooks/useLogin';
 import '../style/Accounts.css';

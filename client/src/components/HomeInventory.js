@@ -5,7 +5,7 @@ function InventoryHome() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8000/main')
+    axios.get('http://localhost:8000/inventory/')
       .then(response => {
         setMessage(response.data.message);
       })

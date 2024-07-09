@@ -50,14 +50,14 @@ div {
     border-radius: 5px;
     background-color: #1E4D2B;
     border-radius: 2px;
-    box-sizing: border-box;
+    box-sizing:calc(100%-0);
     font-family: Open Sans Semibold, Helvetica, sans-serif;
 }
 .myUl {
     position: fixed;
     top: 0;
     left: 0;
-    padding: 1px 8px;
+    padding: 1px 7px;
     height: 100%;
     width: 18%;
     background-color: #111;

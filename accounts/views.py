@@ -19,8 +19,12 @@ def index(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def logoutuser(request):
-	logout(request)
-	return redirect(reverse('index'))
+    try:
+        request.user.auth_token.delete()
+    except (AttributeError, Token.DoesNotExist):
+        pass
+    logout(request)
+    return Response({'message': 'Logged out successfully'}, status=200)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])

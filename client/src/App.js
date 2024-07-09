@@ -1,15 +1,18 @@
 import './style/App.css';
 import './style/Accounts.css';
+import theme from './style/theme'
+import { ThemeProvider } from '@mui/material/styles';
 import React, { useState, useEffect } from 'react';
 import { Navigate, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 
 import StaticAccNavBar from './navbars/AccNavbar';
 import StaticInvNavBar from './navbars/InvNavbar';
-import AccountHome from './components/AccountHome';
-import InventoryHome from './components/InventoryHome';
-import LoginForm from './components/Login';
-import RegisterForm from './components/Register';
+import AccountHome from './components/HomeAccounts';
+import InventoryHome from './components/HomeInventory';
+import LoginForm from './components/AccountLogin';
+import LogoutForm from './components/AccountLogout';
+import RegisterForm from './components/AccountRegister';
 import AddInventory from './components/AddInventory';
 import AddItem from './components/AddItem';
 import AddLab from './components/AddLab';
@@ -40,43 +43,45 @@ export default function App() {
 
   return (
     <div className="App" style={{ height : '100%'}}>
-      <Router>
-        {!isLoggedIn ? (
-          <>
-            <StaticAccNavBar />
-            <Routes>
-              <Route exact path="/accounts" element={<AccountHome />} />
-              <Route path="/accounts/login" element={<LoginForm setIsLoggedIn={setIsLoggedIn} />} />
-              <Route path="/accounts/register" element={<RegisterForm />} />
-              <Route path="*" element={<Navigate replace to="/accounts/login" />} />
-            </Routes>
-          </>
-        ) : (
-          <>
-            <StaticInvNavBar style={{top: 0}} />
-            <Routes>
-              <Route exact path="/main" element={<InventoryHome />} />
-              <Route path="/addinventory" element={<AddInventory />} />
-              <Route path="/additem" element={<AddItem />} />
-              <Route path="/addlab" element={<AddLab />} />
-              <Route path="/addcategory" element={<AddCategory />} />
-              <Route path="/editiinventory/:inv_id" element={<EditInventory />} />
-              <Route path="/edititem/:item_id" element={<EditItem />} />
-              <Route path="/editlab/:lab_id" element={<EditLab />} />
-              <Route path="/editcategory/:cat_id" element={<EditCategory />} />
-              <Route path="/deleteitem/:item_id" element={<DeleteItem />} />
-              <Route path="/deletelab/:lab_id" element={<DeleteLab />} />
-              <Route path="/deleteinventory/:inv_id" element={<DeleteInventory />} />
-              <Route path="/deletecategory/:cat_id" element={<DeleteCategory />} />
-              <Route path="/viewitems" element={<ViewItems />} />
-              <Route path="/viewlabs" element={<ViewLabs />} />
-              <Route path="/viewcategories" element={<ViewCategories />} />
-              <Route path="/accounts" element={<Navigate replace to="/main" />} />
-              <Route path="*" element={<Navigate replace to="/main" />} />
-            </Routes>
-          </>
-        )}
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router>
+          {!isLoggedIn ? (
+            <>
+              <StaticAccNavBar />
+              <Routes>
+                <Route exact path="/accounts" element={<AccountHome />} />
+                <Route path="/accounts/login" element={<LoginForm setIsLoggedIn={setIsLoggedIn} />} />
+                <Route path="/accounts/register" element={<RegisterForm />} />
+                <Route path="*" element={<Navigate replace to="/accounts/login" />} />
+              </Routes>
+            </>
+          ) : (
+            <>
+              <StaticInvNavBar style={{top: 0}} />
+              <Routes>
+                <Route exact path="/main" element={<InventoryHome />} />
+                <Route path="/addinventory" element={<AddInventory />} />
+                <Route path="/additem" element={<AddItem />} />
+                <Route path="/addlab" element={<AddLab />} />
+                <Route path="/addcategory" element={<AddCategory />} />
+                <Route path="/editiinventory/:inv_id" element={<EditInventory />} />
+                <Route path="/edititem/:item_id" element={<EditItem />} />
+                <Route path="/editlab/:lab_id" element={<EditLab />} />
+                <Route path="/editcategory/:cat_id" element={<EditCategory />} />
+                <Route path="/deleteitem/:item_id" element={<DeleteItem />} />
+                <Route path="/deletelab/:lab_id" element={<DeleteLab />} />
+                <Route path="/deleteinventory/:inv_id" element={<DeleteInventory />} />
+                <Route path="/deletecategory/:cat_id" element={<DeleteCategory />} />
+                <Route path="/viewitems" element={<ViewItems />} />
+                <Route path="/viewlabs" element={<ViewLabs />} />
+                <Route path="/viewcategories" element={<ViewCategories />} />
+                <Route path="/accounts/logout" element={<LogoutForm setIsLoggedIn={setIsLoggedIn} />} />
+                <Route path="*" element={<Navigate replace to="/main" />} />
+              </Routes>
+            </>
+          )}
+        </Router>
+      </ThemeProvider>
     </div>
   );
 }

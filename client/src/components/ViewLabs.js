@@ -13,7 +13,7 @@ function ViewLabs() {
   }, []);
 
   const handleEdit = (lab) => {
-    setEditing(lab.lab_id);  // Ensure this matches your database primary key
+    setEditing(lab.lab_id);
     setEditedLab(lab);
   };
 

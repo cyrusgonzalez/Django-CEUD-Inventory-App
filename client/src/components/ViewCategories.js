@@ -1,4 +1,3 @@
-// ViewCategories.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,8 +10,9 @@ import '../style/Accounts.css';
 function ViewCategories() {
   const [categories, setCategories] = useState([]);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm') || theme.breakpoints.down('md'));
   const navigate = useNavigate();
+  const [ pageSize, setPageSize ] = useState(25);
 
   useEffect(() => {
     axios.get('http://localhost:8000/inventory/api/categories/')
@@ -43,7 +43,7 @@ function ViewCategories() {
       sortable: false,
       hideable: false,
       renderCell: (params) => (
-        <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-evenly' , height: '93%'}}>
           <GridActionsCellItem
             icon={<Edit style={{ color: '#D9782D' }} />}
             label="Edit"
@@ -65,7 +65,8 @@ function ViewCategories() {
   }));
 
   return (
-    <div style={{ marginLeft: '20%', height: '100%', color: 'white' }}>
+    <div style={{ marginLeft: '20%'}}>
+      <h1 style={{backgroundColor: '#C8C372'}}>Categories</h1>
       <Container
         style={{
           color: '#1E4D2B',
@@ -87,13 +88,14 @@ function ViewCategories() {
         >
           Add Category
         </Button>
-        <div className="data-grid-container" style={{ height: '400px', width: '100%' }}>
+        <div className="data-grid-container" style={{ height: '100%', width: '100%' }}>
           <DataGrid
             rows={rows}
             columns={columns}
-            pageSize={10}
-            rowsPerPageOptions={[5, 10, 20]}
-            editMode="cell"
+            pageSize={pageSize}
+            rowsPerPageOptions={[10, 25, 50, 100]}
+            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            backgroundColor="#1E4D2B"
             autoHeight
             disableSelectionOnClick
             sx={{
@@ -109,7 +111,7 @@ function ViewCategories() {
               '& .MuiDataGrid-cell': {
                 backgroundColor: '#FFFFFF',
                 color: '#000000',
-                borderBottom: 'none',
+                border: 'none',
               },
               '& .MuiDataGrid-footerContainer': {
                 backgroundColor: '#FFFFFF',
@@ -125,6 +127,15 @@ function ViewCategories() {
               '& .MuiDataGrid-cell:focus-within': {
                 outline: 'black auto 1px',
               },
+              '& .MuiPaper-root': {
+                  position: 'fixed',
+                  backgroundColor: 'rgba(0, 0, 0, 1)',
+                  zIndex: 1300,
+                  right: 0,
+                  bottom: 0,
+                  top: 0,
+                  left: 0,
+              }
             }}
           />
         </div>
