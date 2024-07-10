@@ -1,29 +1,44 @@
-import React from 'react';
+// DeleteItem.js
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button, Container } from '@mui/material';
 
-const DeleteItem = () => {
+function DeleteItem() {
+  const [name, setName] = useState('');
   const { item_id } = useParams();
   const navigate = useNavigate();
 
-  const handleDelete = () => {
-    axios.delete(`http://localhost:8000/main/deleteitem/${item_id}/`)
+  useEffect(() => {
+    axios.get(`http://localhost:8000/inventory/api/items/${item_id}/`)
       .then(response => {
-        console.log('Item deleted:', response.data);
-        navigate('/main');
+        setName(response.data.name);
       })
-      .catch(error => {
-        console.error('There was an error deleting the item!', error);
-      });
+      .catch(error => console.error('Error fetching item:', error));
+  }, [item_id]);
+
+  const handleDelete = () => {
+    axios.delete(`http://localhost:8000/inventory/deleteitem/${item_id}/`)
+      .then(() => {
+        navigate('/viewitems');
+      })
+      .catch(error => console.error('Error deleting item:', error));
+  };
+
+  const handleCancel = () => {
+    navigate('/viewitems');
   };
 
   return (
-    <div>
-      <h1>Are you sure you want to delete this item?</h1>
-      <button onClick={handleDelete}>Yes, Delete</button>
-      <button onClick={() => navigate('/main')}>Cancel</button>
+    <div style={{ marginLeft: '18%', padding: '2% 2%', height: '100%', color: 'white' }}>
+      <Container>
+        <h1>Delete Item</h1>
+        <p>Are you sure you want to delete the '<strong>{name}</strong>' item? This action cannot be undone.</p>
+        <Button type='submit' onClick={handleDelete} variant="contained" color="primary">Delete</Button>
+        <Button type='button' onClick={handleCancel} color="secondary">Cancel</Button>
+      </Container>
     </div>
   );
-};
+}
 
 export default DeleteItem;

@@ -66,7 +66,7 @@ function ViewCategories() {
 
   return (
     <div style={{ marginLeft: '20%'}}>
-      <h1 style={{backgroundColor: '#C8C372'}}>Categories</h1>
+      <h1 style={{backgroundColor: '#C8C372'}}>Item Categories</h1>
       <Container
         style={{
           color: '#1E4D2B',
@@ -82,7 +82,8 @@ function ViewCategories() {
           to="/addcategory"
           style={{
             marginBottom: '20px',
-            backgroundColor: '#1E4D2B',
+            fontWeight: 'bold',
+            backgroundColor: '#C8C372',
             color: '#FFFFFF'
           }}
         >
@@ -107,6 +108,7 @@ function ViewCategories() {
               },
               '& .MuiDataGrid-columnHeaderTitle': {
                 fontWeight: 'bold',
+                color: '#FFFFFF',
               },
               '& .MuiDataGrid-cell': {
                 backgroundColor: '#FFFFFF',
@@ -128,14 +130,26 @@ function ViewCategories() {
                 outline: 'black auto 1px',
               },
               '& .MuiPaper-root': {
-                  position: 'fixed',
-                  backgroundColor: 'rgba(0, 0, 0, 1)',
-                  zIndex: 1300,
-                  right: 0,
-                  bottom: 0,
-                  top: 0,
-                  left: 0,
-              }
+                position: 'fixed',
+                backgroundColor: 'rgba(0, 0, 0, 0.99)',
+                zIndex: 1300,
+                right: 0,
+                bottom: 0,
+                top: 0,
+                left: 0,
+              },
+              '& .MuiDataGrid-footerContainer': {
+                color: '#FFFFFF',
+              },
+              '& .MuiTablePagination-selectLabel': {
+                color: '#FFFFFF',
+              },
+              '& .MuiTablePagination-input': {
+                color: '#FFFFFF',
+              },
+              '& css-levciy-MuiTablePagination-displayedRows': {
+                color: '#FFFFFF',
+              },
             }}
           />
         </div>

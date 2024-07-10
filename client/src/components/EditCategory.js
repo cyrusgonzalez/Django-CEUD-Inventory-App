@@ -1,12 +1,11 @@
-// EditCategory.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { TextField, Button, Container } from '@mui/material';
+import { Button, Container, TextField } from '@mui/material';
 
 function EditCategory() {
   const [name, setName] = useState('');
-  const { cat_id } = useParams(); // Corrected to match the route parameter
+  const { cat_id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {

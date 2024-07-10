@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { Edit, Delete } from '@mui/icons-material';
+import { Container, Button, useMediaQuery, useTheme } from '@mui/material';
 import '../style/Inventory.css';
 
 function ViewItems() {
   const [items, setItems] = useState([]);
-  const [editing, setEditing] = useState(null);
-  const [editedItem, setEditedItem] = useState({});
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm') || theme.breakpoints.down('md'));
+  const navigate = useNavigate();
+  const [pageSize, setPageSize] = useState(25);
 
   useEffect(() => {
     axios.get('http://localhost:8000/inventory/api/items/')
@@ -16,44 +19,36 @@ function ViewItems() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-  const handleEdit = (item) => {
-    setEditing(item.item_id); 
-    setEditedItem(item);
-  };
-
-  const handleSave = (id) => {
-    console.log('Saving item with ID:', id);
-    console.log('Data being sent:', editedItem);
-    axios.put(`http://localhost:8000/inventory/edititem/${id}/`, editedItem)
-      .then(response => {
-        setItems(items.map(item => item.item_id === id ? response.data : item));
-        setEditing(null);
-      })
-      .catch(error => console.error('Error saving data:', error));
+  const handleEdit = (id) => {
+    navigate(`/edititem/${id}`);
   };
 
   const handleDelete = (id) => {
-    console.log('Deleting item with ID:', id);
-    axios.delete(`http://localhost:8000/inventory/deleteitem/${id}/`)
-      .then(() => setItems(items.filter(item => item.item_id !== id)))
-      .catch(error => console.error('Error deleting data:', error));
+    navigate(`/deleteitem/${id}`);
   };
 
   const columns = [
     {
-      Header: 'Name',
-      accessor: 'name',
+      field: 'name',
+      headerName: 'Name',
+      minWidth: 100,
+      resizable: true,
       flex: 1,
+      hideable: true,
     },
     {
-      Header: 'Serial No',
-      accessor: 'serial_no',
+      field: 'serial_no',
+      headerName: 'Serial No',
+      resizable: true,
       flex: 1,
+      hideable: true,
     },
     {
-      Header: 'Description',
-      accessor: 'description',
+      field: 'description',
+      headerName: 'Description',
       flex: 3,
+      hideable: true,
+      resizable: true,
     },
     {
       field: 'actions',
@@ -76,7 +71,6 @@ function ViewItems() {
         </div>
       )
     }
-
   ];
 
   const rows = items.map(item => ({
@@ -87,45 +81,98 @@ function ViewItems() {
   }));
 
   return (
-    <div style={{marginLeft: '20%'}}>
-      <h1>View Items</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Serial No</th>
-            <th>Description</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map(item => (
-            <tr key={item.item_id}>
-              {editing === item.item_id ? (
-                <>
-                  <td><input value={editedItem.name} onChange={(e) => setEditedItem({ ...editedItem, name: e.target.value })} /></td>
-                  <td><input value={editedItem.serial_no} onChange={(e) => setEditedItem({ ...editedItem, serial_no: e.target.value })} /></td>
-                  <td><input value={editedItem.description} onChange={(e) => setEditedItem({ ...editedItem, description: e.target.value })} /></td>
-                  <td>
-                    <button onClick={() => handleSave(item.item_id)}>Save</button>
-                    <button onClick={() => setEditing(null)}>Cancel</button>
-                  </td>
-                </>
-              ) : (
-                <>
-                  <td>{item.name}</td>
-                  <td>{item.serial_no}</td>
-                  <td>{item.description}</td>
-                  <td>
-                    <button onClick={() => handleEdit(item)}>Edit</button>
-                    <button onClick={() => handleDelete(item.item_id)}>Delete</button>
-                  </td>
-                </>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div style={{ marginLeft: '20%' }}>
+      <h1 style={{ backgroundColor: '#C8C372' }}>Inventory Items</h1>
+      <Container
+        style={{
+          color: '#1E4D2B',
+          backgroundColor: '#FFFFFF',
+          padding: isMobile ? '2%' : '2% 10%',
+          minHeight: '100vh'
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/additem"
+          style={{
+            marginBottom: '20px',
+            fontWeight: 'bold',
+            backgroundColor: '#C8C372',
+            color: '#FFFFFF'
+          }}
+        >
+          Add Item
+        </Button>
+        <div className="data-grid-container" style={{ height: '100%', width: '100%' }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={pageSize}
+            rowsPerPageOptions={[10, 25, 50, 100]}
+            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            backgroundColor="#1E4D2B"
+            autoHeight
+            disableSelectionOnClick
+            sx={{
+              '& .MuiDataGrid-columnHeaders': {
+                backgroundColor: '#FFFFFF',
+                color: '#000000',
+                fontWeight: 'bold',
+                borderBottom: '1px solid #000000',
+              },
+              '& .MuiDataGrid-columnHeaderTitle': {
+                fontWeight: 'bold',
+                color: '#FFFFFF',
+              },
+              '& .MuiDataGrid-cell': {
+                backgroundColor: '#FFFFFF',
+                color: '#000000',
+                border: 'none',
+              },
+              '& .MuiDataGrid-footerContainer': {
+                backgroundColor: '#FFFFFF',
+                color: '#000000',
+                borderTop: 'none',
+              },
+              '& .MuiDataGrid-columnSeparator': {
+                display: 'none',
+              },
+              '& .MuiDataGrid-cell:focus': {
+                outline: 'black auto 1px',
+              },
+              '& .MuiDataGrid-cell:focus-within': {
+                outline: 'black auto 1px',
+              },
+              '& .MuiPaper-root': {
+                position: 'fixed',
+                backgroundColor: 'rgba(0, 0, 0, 0.99)',
+                zIndex: 1300,
+                right: 0,
+                bottom: 0,
+                top: 0,
+                left: 0,
+              },
+              '& MuiButtonBase-root': {
+                color: '#FFFFFF',
+              },
+              '& .MuiDataGrid-footerContainer': {
+                color: '#FFFFFF',
+              },
+              '& .MuiTablePagination-selectLabel': {
+                color: '#FFFFFF',
+              },
+              '& .MuiTablePagination-input': {
+                color: '#FFFFFF',
+              },
+              '& css-levciy-MuiTablePagination-displayedRows': {
+                color: '#FFFFFF',
+              },
+            }}
+          />
+        </div>
+      </Container>
     </div>
   );
 }
