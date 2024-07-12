@@ -1,17 +1,26 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from . import viewsets
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register(r'items', viewsets.ItemViewSet)
+router.register(r'labs', viewsets.LabViewSet)
+router.register(r'categories', viewsets.CategoryViewSet)
+router.register(r'inventories', viewsets.InventoryViewSet)
+
+app_name = "main"
 urlpatterns = [
-path("", views.inventorypage, name="inventorypage"),
-path("home/", views.home, name="home"),
-path("additem/", views.additem, name='additem'),
-path("changeitem/", views.changeitem, name='changeitem'),
-path("edititem/<item_id>", views.edititem, name='edititem'),
-path("deleteitem/<item_id>/", views.deleteitem, name='deleteitem'),
-path("changeuser/", views.changeuser, name="changeuser"),
-path("deleteuser/<item_id>/", views.deleteuser, name='deleteuser'),
-path("increment/<item_id>/", views.increment, name="increment"),
-path("increment10/<item_id>/", views.increment10, name="increment10"),
-path("decrement/<item_id>/", views.decrement, name="decrement"),
-path("decrement10/<item_id>/", views.decrement10, name="decrement10"),
+    path("", views.inventorypage, name="inventorypage"),
+    path("api/", include(router.urls)),
+    path("addinventory/", views.addinventory, name="addinventory"),
+    path("additem/", views.additem, name='additem'),
+    path("addlab/", views.addlab, name='addlab'),
+    path("addcategory/", views.addcategory, name='addcategory'),
+    path("edititem/<int:item_id>/", views.edititem, name='edititem'),
+    path("editlab/<int:lab_id>/", views.editlab, name='editlab'),
+    path("editcategory/<int:category_id>/", views.editcategory, name='editcategory'),
+    path("deleteitem/<int:item_id>/", views.deleteitem, name='deleteitem'),
+    path("deletelab/<int:lab_id>/", views.deletelab, name='deletelab'),
+    path("deletecategory/<int:category_id>/", views.deletecategory, name='deletecategory'),
 ]

@@ -1,0 +1,90 @@
+/* styles.css */
+body {
+font-family: 'Open Sans Semibold', Helvetica, sans-serif;
+}
+
+.div{
+    margin-Left: '20%';
+    padding: '2% 2%';
+    height: '100%';
+    color: 'white';
+}
+
+.navbarInv {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 20%;
+    height: 100%;
+    background-color: #111;
+}
+
+.container {
+margin-top: 2%;
+color: #1E4D2B;
+background-color: #FFFFFF;
+padding: 2%;
+min-height: 100vh;
+}
+
+.button-primary {
+margin-bottom: 20px;
+background-color: #1E4D2B;
+color: #FFFFFF;
+}
+
+.input-field, select {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+}
+
+.add-button {
+border-radius: 5px;
+background-color: #1E4D2B;
+border: 1px solid #ccc;
+color: white;
+padding: 2% 2%;
+font-family: 'Open Sans Semibold', Helvetica, sans-serif;
+}
+
+
+.search-item {
+display: inline;
+width: 19%;
+float: left;
+margin-left: 2px;
+}
+
+.MuiDataGrid-root {
+border: none !important;
+}
+
+.MuiButtonBase-root {
+color: #111 !important;
+}
+
+.MuiDataGrid-columnHeaders {
+border-bottom: none !important;
+}
+
+.MuiDataGrid-cell {
+border-bottom: none !important;
+}
+
+.MuiDataGrid-footerContainer {
+    color: '#FFFFFF'
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

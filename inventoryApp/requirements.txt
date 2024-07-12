@@ -1,0 +1,15 @@
+#Django framework
+django==3.1.7
+
+#Django REST framework
+djangorestframework==3.12.2
+
+#Django Filter
+django-filter==2.4.0
+
+#django-cors-headers
+django-cors-headers==3.7.0
+
+#Django LDAP Auth
+django-auth-ldap==2.3.0
+
