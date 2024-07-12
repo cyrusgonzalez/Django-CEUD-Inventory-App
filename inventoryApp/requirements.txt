@@ -12,4 +12,3 @@ django-cors-headers==3.7.0
 
 #Django LDAP Auth
 django-auth-ldap==2.3.0
-
