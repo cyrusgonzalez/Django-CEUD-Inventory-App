@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Inventory, Item, Lab, Category
-from .serializers import InventorySerializer, ItemSerializer, LabSerializer, CategorySerializer
+from .models import Item, Lab, Category, Inventory
+from .serializers import ItemSerializer, LabSerializer, CategorySerializer, InventorySerializer, InventoryCreateUpdateSerializer
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
@@ -16,4 +16,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 class InventoryViewSet(viewsets.ModelViewSet):
     queryset = Inventory.objects.all()
-    serializer_class = InventorySerializer
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return InventoryCreateUpdateSerializer
+        return InventorySerializer

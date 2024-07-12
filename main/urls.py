@@ -23,9 +23,4 @@ urlpatterns = [
     path("deleteitem/<int:item_id>/", views.deleteitem, name='deleteitem'),
     path("deletelab/<int:lab_id>/", views.deletelab, name='deletelab'),
     path("deletecategory/<int:category_id>/", views.deletecategory, name='deletecategory'),
-    path("deleteuser/<int:item_id>/", views.deleteuser, name='deleteuser'),
-    path("increment/<int:item_id>/", views.increment, name="increment"),
-    path("increment10/<int:item_id>/", views.increment10, name="increment10"),
-    path("decrement/<int:item_id>/", views.decrement, name="decrement"),
-    path("decrement10/<int:item_id>/", views.decrement10, name="decrement10"),
 ]

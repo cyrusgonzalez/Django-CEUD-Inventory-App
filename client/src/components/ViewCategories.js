@@ -138,9 +138,6 @@ function ViewCategories() {
                 top: 0,
                 left: 0,
               },
-              '& .MuiDataGrid-footerContainer': {
-                color: '#FFFFFF',
-              },
               '& .MuiTablePagination-selectLabel': {
                 color: '#FFFFFF',
               },

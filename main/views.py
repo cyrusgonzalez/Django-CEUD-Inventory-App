@@ -1,20 +1,11 @@
 from __future__ import unicode_literals
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.shortcuts import render
-
 from rest_framework import status
-from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from accounts.models import CustomUser
-from accounts.decorators import admin_required
-from .forms import Inventoryform, Inventoryfilter
 from .models import Inventory, Lab, Category, Item
-from .serializers import InventorySerializer, LabSerializer, CategorySerializer, ItemSerializer
+from .serializers import InventorySerializer, LabSerializer, CategorySerializer, ItemSerializer, InventoryCreateUpdateSerializer
 
 
 # Create your views here.
@@ -28,11 +19,11 @@ def inventorypage(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def addinventory(request):
-	serializer = InventorySerializer(data=request.data)
-	if serializer.is_valid():
-		serializer.save()
-		return Response(serializer.data, status=status.HTTP_201_CREATED)
-	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer = InventoryCreateUpdateSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -59,6 +50,20 @@ def addcategory(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def editinventory(request, inventory_id):
+    try:
+        inventory = Inventory.objects.get(pk=inventory_id)
+    except Inventory.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = InventoryCreateUpdateSerializer(inventory, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
@@ -105,6 +110,18 @@ def editcategory(request, category_id):
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
+def deleteinventory(request, inventory_id):
+    try:
+        inventory = Inventory.objects.get(pk=inventory_id)
+    except Inventory.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    inventory.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def deleteitem(request, item_id):
     try:
         item = Item.objects.get(pk=item_id)
@@ -135,51 +152,3 @@ def deletecategory(request, category_id):
 
     category.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
-	
-@admin_required
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def deleteuser(request, item_id):
-	item = CustomUser.objects.get(pk=item_id)
-	if (request.method == 'POST'):
-		item.delete()
-		return redirect(reverse('main:changeuser'))
-	return render(request, "deleteuser.html", {'item':item})@api_view(['POST'])
-
-@permission_classes([IsAuthenticated])
-def increment(request, item_id):
-	item = Inventory.objects.get(pk=item_id)
-	item.quantity_of += 1
-	item.save()
-	return redirect(reverse('main:inventorypage'))
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def increment10(request, item_id):
-	item = Inventory.objects.get(pk=item_id)
-	item.quantity_of += 10
-	item.save()
-	return redirect(reverse('main:inventorypage'))
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def decrement(request, item_id):
-	item = Inventory.objects.get(pk=item_id)
-	if 0 <= (item.quantity_of - 1):
-		item.quantity_of -= 1
-		item.save()
-		return redirect(reverse('main:inventorypage'))
-	messages.error(request, "Cannot go lower than 0, delete item in 'Edit/Delete Items' tab")
-	return redirect(reverse('main:inventorypage'))
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def decrement10(request, item_id):
-	item = Inventory.objects.get(pk=item_id)
-	if 0 <= (item.quantity_of - 10):
-		item.quantity_of -= 10
-		item.save()
-		return redirect(reverse('main:inventorypage'))
-	messages.error(request, "Cannot go lower than 0, delete item in 'Edit/Delete Items' tab")
-	return redirect(reverse('main:inventorypage'))
-

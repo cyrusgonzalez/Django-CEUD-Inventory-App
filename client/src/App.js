@@ -8,8 +8,7 @@ import axios from 'axios';
 
 import StaticAccNavBar from './navbars/AccNavbar';
 import StaticInvNavBar from './navbars/InvNavbar';
-import AccountHome from './components/HomeAccounts';
-import InventoryHome from './components/HomeInventory';
+import AccountHome from './components/AccountHome';
 import LoginForm from './components/AccountLogin';
 import LogoutForm from './components/AccountLogout';
 import RegisterForm from './components/AccountRegister';
@@ -25,6 +24,7 @@ import DeleteInventory from './components/DeleteInventory';
 import DeleteItem from './components/DeleteItem';
 import DeleteLab from './components/DeleteLab';
 import DeleteCategory from './components/DeleteCategory';
+import ViewInventories from './components/ViewInventories';
 import ViewItems from './components/ViewItems';
 import ViewLabs from './components/ViewLabs';
 import ViewCategories from './components/ViewCategories';
@@ -59,7 +59,7 @@ export default function App() {
             <>
               <StaticInvNavBar style={{top: 0}} />
               <Routes>
-                <Route exact path="/main" element={<InventoryHome />} />
+                <Route exact path="/main" element={<ViewInventories />} />
                 <Route path="/addinventory" element={<AddInventory />} />
                 <Route path="/additem" element={<AddItem />} />
                 <Route path="/addlab" element={<AddLab />} />

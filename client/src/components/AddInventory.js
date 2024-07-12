@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Button, Container, TextField, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 
 function AddInventory() {
   const [items, setItems] = useState([]);
   const [labs, setLabs] = useState([]);
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
-    item_id: '',
-    lab_id: '',
-    category_id: '',
+    item: '',
+    lab: '',
+    category: '',
     quantity: '',
     threshold_low: '',
     threshold_high: ''
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:8000/inventory/api/items/').then(response => setItems(response.data));
@@ -29,59 +32,105 @@ function AddInventory() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/inventory/main/addinventory/', formData)
+    axios.post('http://localhost:8000/inventory/addinventory/', {
+      item: formData.item,
+      lab: formData.lab,
+      category: formData.category,
+      quantity: formData.quantity,
+      threshold_low: formData.threshold_low,
+      threshold_high: formData.threshold_high
+    })
       .then(response => {
         console.log(response.data);
         alert('Inventory added successfully!');
+        navigate('/viewinventories');
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error('Error adding inventory:', error.response.data);
+      });
+  };
+
+  const handleCancel = () => {
+    navigate('/viewinventories');
   };
 
   return (
     <div style={{ marginLeft: '18%', padding: '2% 2%', height: '100%', color: 'white' }}>
-      <h1>Add Inventory</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Item</label>
-          <select name="item_id" value={formData.item_id} onChange={handleChange}>
-            <option value="">Select Item</option>
-            {items.map(item => (
-              <option key={item.id} value={item.id}>{item.name}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Lab</label>
-          <select name="lab_id" value={formData.lab_id} onChange={handleChange}>
-            <option value="">Select Lab</option>
-            {labs.map(lab => (
-              <option key={lab.id} value={lab.id}>{lab.name}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Category</label>
-          <select name="category_id" value={formData.category_id} onChange={handleChange}>
-            <option value="">Select Category</option>
-            {categories.map(category => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Quantity</label>
-          <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Threshold Low</label>
-          <input type="number" name="threshold_low" value={formData.threshold_low} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Threshold High</label>
-          <input type="number" name="threshold_high" value={formData.threshold_high} onChange={handleChange} />
-        </div>
-        <button type="submit">Add Inventory</button>
-      </form>
+      <Container style={{backgroundColor: '#FFFFFF'}}>
+        <br />
+        <h1 style={{color: '#111111'}}>Add Inventory</h1>
+        <form onSubmit={handleSubmit}>
+          <FormControl fullWidth margin="normal" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
+            <InputLabel>Item</InputLabel>
+            <Select
+              name="item"
+              value={formData.item}
+              onChange={handleChange}
+            >
+              {items.map(item => (
+                <MenuItem key={item.item_id} value={item.item_id}>{item.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth margin="normal" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
+            <InputLabel>Lab</InputLabel>
+            <Select
+              name="lab"
+              value={formData.lab}
+              onChange={handleChange}
+            >
+              {labs.map(lab => (
+                <MenuItem key={lab.lab_id} value={lab.lab_id}>{lab.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth margin="normal" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
+            <InputLabel>Category</InputLabel>
+            <Select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
+              {categories.map(category => (
+                <MenuItem key={category.category_id} value={category.category_id}>{category.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            fullWidth
+            margin="normal"
+            name="quantity"
+            label="Quantity"
+            type="number"
+            value={formData.quantity}
+            onChange={handleChange}
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            name="threshold_low"
+            label="Threshold Low"
+            type="number"
+            value={formData.threshold_low}
+            onChange={handleChange}
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            name="threshold_high"
+            label="Threshold High"
+            type="number"
+            value={formData.threshold_high}
+            onChange={handleChange}
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}
+          />
+          <Button type="submit" variant='contained' color='primary'>Add</Button>
+          <Button type="button" onClick={handleCancel} color='secondary'>Cancel</Button>
+        </form>
+        <br />
+      </Container>
     </div>
   );
 }

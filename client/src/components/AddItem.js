@@ -26,8 +26,9 @@ function AddItem() {
 
   return (
     <div style={{ marginLeft: '18%', padding: '2% 2%', height: '100%', color: 'white' }}>
-      <Container>
-        <h1>Add Item</h1>
+      <Container style={{backgroundColor: '#FFFFFF'}}>
+        <br />
+        <h1 style={{color: '#111111'}}>Add Item</h1>
         <form onSubmit={handleSubmit}>
           <TextField
             autoFocus
@@ -60,6 +61,7 @@ function AddItem() {
           <Button type="submit" variant='contained' color='primary'>Add</Button>
           <Button type="button" onClick={handleCancel} color='secondary'>Cancel</Button>
         </form>
+        <br />
       </Container>
     </div>
   );

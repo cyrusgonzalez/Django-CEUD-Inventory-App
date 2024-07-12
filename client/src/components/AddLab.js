@@ -23,8 +23,9 @@ function AddLab() {
 
   return (
     <div style={{ marginLeft: '18%', padding: '2% 2%', height: '100%', color: 'white' }}>
-      <Container>
-        <h1>Add Lab</h1>
+      <Container style={{backgroundColor: '#FFFFFF'}}>
+        <br />
+        <h1 style={{color: '#111111'}}>Add Location</h1>
         <form onSubmit={handleSubmit}>
           <TextField
             autoFocus
@@ -39,6 +40,7 @@ function AddLab() {
           <Button type="submit" variant='contained' color='primary'>Add</Button>
           <Button type="button" onClick={handleCancel} color='secondary'>Cancel</Button>
         </form>
+        <br />
       </Container>
     </div>
   );

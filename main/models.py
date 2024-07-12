@@ -1,9 +1,8 @@
-from __future__ import unicode_literals
 from django.db import models
 from django.db.models.functions import Upper
 
 class Lab(models.Model):
-    lab_id = models.AutoField(db_column='LabID', primary_key=True)  # Ensure correct mapping
+    lab_id = models.AutoField(db_column='LabID', primary_key=True)
     name = models.CharField(db_column='LabName', max_length=255)
 
     def __str__(self):
@@ -14,7 +13,7 @@ class Lab(models.Model):
         db_table = 'Lab'
 
 class Category(models.Model):
-    category_id = models.AutoField(db_column='CategoryID', primary_key=True)  # Ensure correct mapping
+    category_id = models.AutoField(db_column='CategoryID', primary_key=True)
     name = models.CharField(db_column='CategoryName', max_length=255)
 
     def __str__(self):
@@ -25,7 +24,7 @@ class Category(models.Model):
         db_table = 'Category'
 
 class Item(models.Model):
-    item_id = models.AutoField(db_column='ItemID', primary_key=True)  # Ensure correct mapping
+    item_id = models.AutoField(db_column='ItemID', primary_key=True)
     name = models.CharField(db_column='ItemName', max_length=255)
     serial_no = models.CharField(db_column='SerialNo', max_length=255, blank=True, null=True)
     description = models.TextField(db_column='Description', blank=True, null=True)
@@ -38,7 +37,7 @@ class Item(models.Model):
         db_table = 'Item'
 
 class Inventory(models.Model):
-    record_id = models.AutoField(db_column='RecordID', primary_key=True)  # Ensure correct mapping
+    record_id = models.AutoField(db_column='RecordID', primary_key=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, db_column='ItemID')
     lab = models.ForeignKey(Lab, on_delete=models.CASCADE, db_column='LabID')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, db_column='CategoryID')
