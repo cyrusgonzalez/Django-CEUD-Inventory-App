@@ -2,7 +2,7 @@
 django>=3.2.24
 
 #Django REST framework
-djangorestframework==3.12.2
+djangorestframework==3.15.2
 
 #Django Filter
 django-filter==2.4.0
